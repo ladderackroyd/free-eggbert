@@ -1151,7 +1151,7 @@ int CPixmap::Benchmark()
 	FILE* file = NULL;
 	char        string[100];
 	sprintf(string, "Benchmark = %d\r\n", time);
-	file = fopen("data\\bench.blp", "wb");
+	file = fopen("data/bench.blp", "wb");
 	if (file == NULL)  return time;
 	fwrite(string, strlen(string), 1, file);
 	fclose(file);

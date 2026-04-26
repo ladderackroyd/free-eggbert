@@ -153,7 +153,15 @@ Then select: `Build Solution`
 ### WineLib
 
 Install: `apt install libwine-dev libjack-dev`  
-Build via console: `cmake -B build && cmake --build build`
+Build via console: 
+```bash
+cmake -B build \
+  -DSPEEDY_BLUPI_BACKEND=WINELIB \
+  -DCMAKE_CXX_COMPILER=wineg++-stable \
+  -DCMAKE_C_COMPILER=winegcc-stable
+
+cmake --build build
+```
 
 #### Clion
 
@@ -173,9 +181,13 @@ Executable=/usr/bin/wine
 Arguments={PATH}/winelib-demo/cmake-build-debug/bin/WINELIB_DEMO.exe
 ```
 
+### Free Direct
 
-
-
+Build:
+```bash
+cmake -B build -DSPEEDY_BLUPI_BACKEND=FREEDIRECT
+cmake --build build
+```
 ## Known Workaround
 
 This workaround may be required in some configurations:

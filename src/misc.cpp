@@ -85,6 +85,10 @@ int Random(int min, int max)
 
     return (int)n;
 }
+#ifdef WINELIB
+// Declare _pgmptr to mimic the Windows CRT version
+extern char _pgmptr[MAX_PATH];
+#endif
 
 void GetCurrentDir(char *pName, int lg)
 {
@@ -137,7 +141,7 @@ void AddCDPath(char *pFilename)
 #else
 	if ( !bDaniel &&
 		 (strstr(pFilename, "image08\\") == pFilename ||
-          strstr(pFilename, "data\\") == pFilename    ||
+          strstr(pFilename, "data/") == pFilename    ||
 		  strstr(pFilename, "image16\\") == pFilename ||
           strstr(pFilename, "sound\\")) )
 	{

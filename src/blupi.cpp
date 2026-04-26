@@ -8,7 +8,6 @@ typedef struct IUnknown IUnknown;
 #include <windows.h>
 #include <windowsx.h>
 #include <wtypes.h>
-#include <stdlib.h>
 #include <stdio.h>
 #include <mmsystem.h>
 #include <time.h>
@@ -36,6 +35,12 @@ typedef struct IUnknown IUnknown;
 #endif
 
 #define MMTIMER     TRUE
+
+#ifdef WINELIB
+#undef MMTIMER
+#define MMTIMER     FALSE
+#endif
+
 #define THREAD		FALSE
 
 // Variables Globals
@@ -89,7 +94,7 @@ BOOL ReadConfig(LPSTR lpCmdLine)
 	int 		i;
 	MEMORYSTATUS mem;
 
-	file = fopen("data\\config.def", "rb");
+	file = fopen("data/config.def", "rb");
 	if (file == NULL)   return FALSE;
 	nb = fread(buffer, sizeof(char), 200 - 1, file);
 	buffer[nb] = 0;
@@ -640,7 +645,7 @@ int Benchmark()
 	int        i, j, t1, t2, time;
 	RECT    rect;
 	POINT    dest;
-	_MEMORYSTATUS mem;
+	MEMORYSTATUS mem;
 
 	ftime(&tstruct);
 	t1 = tstruct.millitm;
@@ -663,7 +668,7 @@ int Benchmark()
 	FILE* file = NULL;
 	char        string[100];
 	sprintf(string, "CheckTime = %d Memory = %d\r\n", time, mem.dwTotalPhys);
-	file = fopen("data\\time.blp", "wb");
+	file = fopen("data/time.blp", "wb");
 	if (file == NULL)  return time;
 	fwrite(string, strlen(string), 1, file);
 	fclose(file);
@@ -823,9 +828,18 @@ static BOOL DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 	return TRUE;
 }
 
+#ifdef WINELIB
+// Define _pgmptr as a global variable
+char _pgmptr[MAX_PATH];
+#endif
+
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 					LPSTR lpCmdLine, int nCmdShow)
 {
+#ifdef WINELIB
+	GetModuleFileNameA(NULL, _pgmptr, MAX_PATH);
+#endif
+
 	MSG		msg;
 	LPTIMECALLBACK timeStep;
 

@@ -8,15 +8,19 @@ typedef struct IUnknown IUnknown;
 #include <windowsx.h>
 #include <commdlg.h>
 #include <string.h>
-#include <stdlib.h>
+//#include <stdlib.h>
 #include <stdio.h>
+#ifndef WINELIB
 #include <direct.h>
-#include <mmsystem.h>		
-#include <digitalv.h>		
+#endif
+
+
+#include <mmsystem.h>
+#include <digitalv.h>
 // #include <mciapi.h>
-#include "def.hpp"
-#include "movie.hpp"
-#include "misc.hpp"
+#include "def.h"
+#include "movie.h"
+#include "misc.h"
 
 //----------------------------------------------------------------------------
 
@@ -31,36 +35,40 @@ typedef struct IUnknown IUnknown;
 
 BOOL CMovie::initAVI()
 {
+#ifndef WINELIB
+
 	MCI_DGV_OPEN_PARMS	mciOpen;
-		
+
 	// set up the open parameters
 	mciOpen.dwCallback 		 = 0L;
 	mciOpen.wDeviceID 		 = 0;
-
-	char AVI_VIDEO_TEXT[] = AVI_VIDEO;
-	mciOpen.lpstrDeviceType = AVI_VIDEO_TEXT;
+	mciOpen.lpstrDeviceType  = const_cast<char*>(AVI_VIDEO);
 	mciOpen.lpstrElementName = NULL;
 	mciOpen.lpstrAlias 		 = NULL;
 	mciOpen.dwStyle 		 = 0;
 	mciOpen.hWndParent 		 = NULL;
-		
-	// try to open the driver
+
+	try to open the driver
 	return (mciSendCommand(0, MCI_OPEN, (DWORD)(MCI_OPEN_TYPE),
                            (DWORD)(LPMCI_DGV_OPEN_PARMS)&mciOpen) == 0);
+#endif
 }
 
 // Closes the opened AVI file and the opened device type.                                               |
 
 void CMovie::termAVI()
 {
+#ifndef WINELIB
+
 	MCIDEVICEID        mciID;
 	MCI_GENERIC_PARMS  mciClose;
-	
+
 	// Get the device ID for the opened device type and then close
 	// the device type.
 	mciID = mciGetDeviceIDA(AVI_VIDEO);
 	mciSendCommand(mciID, MCI_CLOSE, 0L,
                    (DWORD)(LPMCI_GENERIC_PARMS)&mciClose);
+#endif
 }
 
 
@@ -80,6 +88,7 @@ void CMovie::positionMovie(HWND hWnd, RECT rect)
 
 void CMovie::fileCloseMovie(HWND hWnd)
 {
+#ifndef WINELIB
 	MCI_GENERIC_PARMS  mciGeneric;
 
 	mciSendCommand(m_wMCIDeviceID, MCI_CLOSE, 0L,
@@ -87,10 +96,11 @@ void CMovie::fileCloseMovie(HWND hWnd)
 
 	m_fPlaying   = FALSE;	// can't be playing any longer
 	m_fMovieOpen = FALSE;	// no more movies open
-	
+
 	// cause a total repaint to occur
 	InvalidateRect(hWnd, NULL, TRUE);
 	UpdateWindow(hWnd);
+#endif
 }
 
 
@@ -102,6 +112,8 @@ void CMovie::fileCloseMovie(HWND hWnd)
 
 BOOL CMovie::fileOpenMovie(HWND hWnd, RECT rect, char *pFilename)
 {
+#ifndef WINELIB
+
 	MCI_DGV_OPEN_PARMS		mciOpen;
 	MCI_DGV_WINDOW_PARMS	mciWindow;
 	MCI_DGV_STATUS_PARMS	mciStatus;
@@ -118,7 +130,7 @@ BOOL CMovie::fileOpenMovie(HWND hWnd, RECT rect, char *pFilename)
 	}
 
 	// we got a filename, now close any old movie and open the new one.					*/
-	if ( m_fMovieOpen )  fileCloseMovie(hWnd);	
+	if ( m_fMovieOpen )  fileCloseMovie(hWnd);
 
 	// we have a .AVI movie to open, use MCI
 	// set up the open parameters
@@ -171,6 +183,8 @@ BOOL CMovie::fileOpenMovie(HWND hWnd, RECT rect, char *pFilename)
 
 		return FALSE;
 	}
+#endif
+
 }
 
 // Play/pause the movie depending on the state
@@ -179,6 +193,8 @@ BOOL CMovie::fileOpenMovie(HWND hWnd, RECT rect, char *pFilename)
 
 void CMovie::playMovie(HWND hWnd, int nDirection)
 {
+#ifndef WINELIB
+
 	m_fPlaying = !m_fPlaying;	// swap the play flag
 
 	if( !nDirection )
@@ -189,25 +205,26 @@ void CMovie::playMovie(HWND hWnd, int nDirection)
 	{
 		DWORD			dwFlags;
 		MCI_DGV_PLAY_PARMS	mciPlay;
-		
+
 		// init to play all
 		mciPlay.dwCallback = MAKELONG(hWnd,0);
 		mciPlay.dwFrom = mciPlay.dwTo = 0;
 		dwFlags = MCI_NOTIFY;
 		if ( nDirection == IDM_RPLAY )
 			dwFlags |= MCI_DGV_PLAY_REVERSE;
-		
+
 		mciSendCommand(m_wMCIDeviceID, MCI_PLAY, dwFlags,
 		               (DWORD)(LPMCI_DGV_PLAY_PARMS)&mciPlay);
 	}
 	else
 	{
 		MCI_DGV_PAUSE_PARMS	mciPause;
-	
+
 		// tell it to pause
 		mciSendCommand(m_wMCIDeviceID,MCI_PAUSE,0L,
                       (DWORD)(LPMCI_DGV_PAUSE_PARMS)&mciPause);
 	}
+#endif
 }
 
 

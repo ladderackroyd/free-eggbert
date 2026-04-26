@@ -7,9 +7,9 @@ typedef struct IUnknown IUnknown;
 #include <stdio.h>
 #include <windows.h>
 #include "dplay.h"
-#include "misc.hpp"
-#include "network.hpp"
-#include "def.hpp"
+#include "misc.h"
+#include "network.h"
+#include "def.h"
 
 // a0f94abe-11c3-d111-be62-0040f6944838
 static const GUID APP_GUID = { 0xbe4af9a0, 0xc311, 0x11d1, { 0xbe, 0x62, 0x00, 0x40, 0xf6, 0x94, 0x48, 0x38 } };
@@ -51,20 +51,23 @@ static BOOL EnumProvidersCallback(LPGUID lpguidSP, LPSTR lpSPName,
 
 BOOL CNetwork::EnumProviders()
 {
+#ifndef WINELIB
+
 	FreeProviderList();
 	m_providers.nb = 0;
 	m_providers.pList = (NamedGUID(*)[MAXSESSION]) malloc(MAXSESSION * sizeof(NamedGUID));
 
 	if (!m_providers.pList) return FALSE;
 #ifdef _UNICODE
-	if (DirectPlayEnumerate((LPDPENUMDPCALLBACK)EnumProvidersCallback, &m_providers) != DP_OK)
+	if (DirectPlayEnumerateW((LPDPENUMDPCALLBACK)EnumProvidersCallback, &m_providers) != DP_OK)
 #else
-	if (DirectPlayEnumerate((LPDPENUMDPCALLBACKA)EnumProvidersCallback, &m_providers) != DP_OK)
+	if (DirectPlayEnumerateA((LPDPENUMDPCALLBACKA)EnumProvidersCallback, &m_providers) != DP_OK)
 #endif
 	{
 		FreeProviderList();
 		return FALSE;
 	}
+#endif
 	return TRUE;
 }
 
@@ -81,6 +84,8 @@ char* CNetwork::GetProviderName(int index)
 
 BOOL CNetwork::CreateProvider(int index)
 {
+#ifndef WINELIB
+
 	LPDIRECTPLAY lpDP;
 	BOOL bOK = FALSE;
 
@@ -95,6 +100,7 @@ BOOL CNetwork::CreateProvider(int index)
 	}
 
 	if (lpDP) lpDP->Release();
+#endif
 	return FALSE;
 }
 
@@ -158,6 +164,10 @@ char* CNetwork::GetSessionName(int index)
 	if (index >= m_sessions.nb) return NULL;
 	return (*m_sessions.pList)[index].name;
 }
+
+#ifdef WINELIB
+#define DPOPEN_OPENSESSION          DPOPEN_JOIN
+#endif
 
 BOOL CNetwork::JoinSession(int index, char* pPlayerName)
 {

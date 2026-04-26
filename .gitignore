@@ -26,3 +26,14 @@ DATA/*
 IMAGE08/*
 IMAGE16/*
 SOUND/*
+
+# CLion
+build*
+.idea*
+cmake-build-debug/*
+/image08
+/image16
+/sound
+/movie
+/data
+/gamefiles

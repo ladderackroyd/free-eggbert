@@ -24,6 +24,11 @@
 #define _DREAM			TRUE	// if TRUE, allow Dream blocks when loading levels
 #define _BASS			FALSE	// if TRUE, use BASS audio library instead of DirectMusic (wip)
 
+#ifdef WINELIB
+#define _BASS			FALSE
+#endif
+
+
 #define MAXGAMER		8
 #define MAXNETPLAYER	4
 #define MAXTEAM			4
@@ -1331,84 +1336,84 @@ inline POINT MAKE_POINT (int x, int y)
 
 // helpers for POINT
 
-POINT operator+(POINT p, const POINT& a)
+inline POINT operator+(POINT p, const POINT& a)
 {
 	return POINT( a.x + p.x, a.y + p.y );
 }
 
-POINT operator-(POINT p, const POINT& a)
+inline POINT operator-(POINT p, const POINT& a)
 {
 	return POINT( p.x - a.x, p.y - a.y );
 }
 
-POINT operator*(POINT p, const POINT& a)
+inline POINT operator*(POINT p, const POINT& a)
 {
 	return POINT( a.x * p.x, a.y * p.y );
 }
 
-POINT operator/(POINT p, const POINT& a)
+inline POINT operator/(POINT p, const POINT& a)
 {
 	return POINT( p.x / a.x, p.y / a.y );
 }
 
-POINT operator*(POINT p, const int& a)
+inline POINT operator*(POINT p, const int& a)
 {
 	return POINT( p.x * a, p.y * a );
 }
 
-POINT operator/(POINT p, const int& a)
+inline POINT operator/(POINT p, const int& a)
 {
 	return POINT( p.x / a, p.y / a );
 }
 
-POINT& operator+=(POINT& p, const POINT& a)
+inline POINT& operator+=(POINT& p, const POINT& a)
 {
 	p.x += a.x;
 	p.y += a.y;
 	return p;
 }
 
-POINT& operator-=(POINT& p, const POINT& a)
+inline POINT& operator-=(POINT& p, const POINT& a)
 {
 	p.x -= a.x;
 	p.y -= a.y;
 	return p;
 }
 
-POINT& operator*=(POINT& p, const POINT& a)
+inline POINT& operator*=(POINT& p, const POINT& a)
 {
 	p.x *= a.x;
 	p.y *= a.y;
 	return p;
 }
 
-POINT& operator/=(POINT& p, const POINT& a)
+inline POINT& operator/=(POINT& p, const POINT& a)
 {
 	p.x /= a.x;
 	p.y /= a.y;
 	return p;
 }
 
-POINT& operator*=(POINT& p, const int& a)
+inline POINT& operator*=(POINT& p, const int& a)
 {
 	p.x *= a;
 	p.y *= a;
 	return p;
 }
 
-POINT& operator/=(POINT& p, const int& a)
+inline POINT& operator/=(POINT& p, const int& a)
 {
 	p.x /= a;
 	p.y /= a;
 	return p;
 }
 
-bool operator!=(POINT a, const POINT& b)
+inline bool operator!=(POINT a, const POINT& b)
 {
 	return a.x != b.x || a.y != b.y;
 }
 
-bool operator==(POINT a, const POINT& b)
+inline bool operator==(POINT a, const POINT& b)
 {
 	return a.x == b.x && a.y == b.y;
 }
