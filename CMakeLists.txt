@@ -27,8 +27,12 @@ target_include_directories(SPEEDY_BLUPI_WINDOWS
 target_compile_options(SPEEDY_BLUPI_WINDOWS
         PRIVATE
         -fpermissive
+        -fms-extensions
         -fPIC
         -w
+        -Wno-c++11-narrowing
+        -Wno-int-to-pointer-cast
+        -Wno-pointer-to-int-cast
         -g
         -O0
 )
@@ -79,15 +83,14 @@ elseif(SPEEDY_BLUPI_BACKEND STREQUAL "FREEDIRECT")
 
     target_compile_definitions(SPEEDY_BLUPI_WINDOWS PRIVATE FREEDIRECT)
 
-    # TODO:
-    # Future native backend replacing the DirectX 3 SDK / WineLib dependency.
-    #
-    # Expected future libraries may include:
-    #   free-direct
-    #   SDL3
-    #   SDL3_mixer
-    #
-    # target_link_libraries(SPEEDY_BLUPI_WINDOWS PRIVATE free-direct)
+    add_subdirectory(../free-api FREE_API)
+    add_subdirectory(../free-direct FREE_DIRECT)
+
+    target_link_libraries(SPEEDY_BLUPI_WINDOWS
+            PRIVATE
+            free-api
+            free-direct
+    )
 
 else()
     message(FATAL_ERROR "Unknown SPEEDY_BLUPI_BACKEND: ${SPEEDY_BLUPI_BACKEND}")
