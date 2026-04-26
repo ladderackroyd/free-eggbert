@@ -9,9 +9,10 @@ typedef struct IUnknown IUnknown;
 //#include "resource.h"
 #include "dectables.h"
 
-// get the graphics channel corresponding to Blupi's team
-// (for Personal bomb, etc)
-int CDecor::GetBlupiChannelStandard()
+
+// get Blupi's current graphics channel
+// (changes for certain actions such as burned or glued)
+int CDecor::GetBlupiChannelActual()
 {
 	if (m_bMulti && m_blupiChannel == CHBLUPI && m_team > 0) {
 		return m_team + CHBLUPI1 - 1;
@@ -19,9 +20,9 @@ int CDecor::GetBlupiChannelStandard()
 	else return m_blupiChannel;
 }
 
-// get Blupi's current graphics channel
-// (changes for certain effects such as burned or glued)
-int CDecor::GetBlupiChannelActual()
+// get the graphics channel corresponding to Blupi's team
+// (for Personal bomb, etc)
+int CDecor::GetBlupiChannelStandard()
 {
 	if (m_bMulti && m_team > 0) {
 		return m_team + CHBLUPI1 - 1;

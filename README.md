@@ -14,13 +14,13 @@ Currently, no source code has been publicly released for Speedy Blupi.  We are u
  
 ## Future Suggestions
 
- - Migrate from DirectX 3 to SDL 3
+ - Add support for WineLib and Free Direct
  - Make the game multiplatform, targeting Android and web browsers as well
 
 ## Development
  Some demangled symbol names are taken from the 2013 Windows Phone version of Speedy Blupi, which we inspected using ILSpy.  Big thanks to Ч.У.Ш on the 4PDA forum for archiving this obscure version of the game!!!
  
- Gameplay is functional, but defective and missing many features.
+ Gameplay is functional but defective and missing many features.
 
  For personal convenience, this code uses the BASS and BASSMIDI audio library. The original behavior using Windows MCI can be restored in `def.h` by changing `#define _BASS` to `false`.
  
@@ -50,9 +50,11 @@ Currently, no source code has been publicly released for Speedy Blupi.  We are u
 
 ### Clone with git
 
+```
 #init and update submodules
 git submodule init
 git submodule update
+```
 
 ### How to setup the development environment locally
 
