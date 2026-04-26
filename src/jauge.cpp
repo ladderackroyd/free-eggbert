@@ -8,12 +8,12 @@ typedef struct IUnknown IUnknown;
 //#include <stdlib.h>
 //#include <stdio.h>
 #include <ddraw.h>
-#include "def.h"
-#include "pixmap.h"
-#include "sound.h"
-#include "decor.h"
-#include "jauge.h"
-#include "misc.h"
+#include "def.hpp"
+#include "pixmap.hpp"
+#include "sound.hpp"
+#include "decor.hpp"
+#include "jauge.hpp"
+#include "misc.hpp"
 
 
 

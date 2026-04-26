@@ -12,11 +12,11 @@ typedef struct IUnknown IUnknown;
 #include <windows.h>
 #endif
 
-#include "button.h"
-#include "misc.h"
-#include "def.h"
-#include "pixmap.h"
-#include "sound.h"
+#include "button.hpp"
+#include "misc.hpp"
+#include "def.hpp"
+#include "pixmap.hpp"
+#include "sound.hpp"
 
 //////////////////////////////////////////////////////////
 

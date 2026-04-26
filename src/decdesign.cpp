@@ -4,10 +4,10 @@
 typedef struct IUnknown IUnknown;
 
 
-#include "def.h"
-#include "decor.h"
-#include "misc.h"
-#include "dectables.h"
+#include "def.hpp"
+#include "decor.hpp"
+#include "misc.hpp"
+#include "dectables.hpp"
 
 POINT CDecor::ScreenPosToCelPos(POINT pos)
 {

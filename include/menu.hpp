@@ -2,8 +2,8 @@
 #ifndef MENU_H
 #define MENU_H
 
-#include "decor.h"
-#include "pixmap.h"
+#include "decor.hpp"
+#include "pixmap.hpp"
 
 //////////////////////////////////////////////////////////////////////
 

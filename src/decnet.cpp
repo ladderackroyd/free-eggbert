@@ -4,10 +4,10 @@
 typedef struct IUnknown IUnknown;
 
 
-#include "def.h"
-#include "decor.h"
-#include "misc.h"
-#include "network.h"
+#include "def.hpp"
+#include "decor.hpp"
+#include "misc.hpp"
+#include "network.hpp"
 
 void CDecor::NetStopCloud(int rank)
 {

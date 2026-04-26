@@ -3,9 +3,9 @@
 
 #include <windows.h>
 
-#include "decor.h"
-#include "pixmap.h"
-#include "sound.h"
+#include "decor.hpp"
+#include "pixmap.hpp"
+#include "sound.hpp"
 
 class CButton
 {

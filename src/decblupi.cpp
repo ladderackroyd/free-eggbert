@@ -3,11 +3,11 @@
 
 typedef struct IUnknown IUnknown;
 
-#include "misc.h"
-#include "decor.h"
-#include "text.h" // debug
+#include "misc.hpp"
+#include "decor.hpp"
+#include "text.hpp" // debug
 //#include "resource.h"
-#include "dectables.h"
+#include "dectables.hpp"
 
 
 // get Blupi's current graphics channel

@@ -1,7 +1,7 @@
 #ifndef DECTABLES_H
 #define DECTABLES_H
 
-#include "obstacle.h"
+#include "obstacle.hpp"
 
 extern int table_blitz[] = 
 {

@@ -4,9 +4,9 @@
 typedef struct IUnknown IUnknown;
 
 
-#include "def.h"
-#include "decor.h"
-#include "misc.h"
+#include "def.hpp"
+#include "decor.hpp"
+#include "misc.hpp"
 
 void CDecor::GetMissionPath(char* str, int user, int mission, BOOL bUser)
 {

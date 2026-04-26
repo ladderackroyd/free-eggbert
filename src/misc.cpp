@@ -8,7 +8,7 @@ typedef struct IUnknown IUnknown;
 #include <ddraw.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "def.h"
+#include "def.hpp"
 
 // Global Variables
 

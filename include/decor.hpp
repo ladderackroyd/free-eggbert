@@ -2,11 +2,11 @@
 #ifndef DECOR_H
 #define DECOR_H
 
-#include "DEF.H"
-#include "jauge.h"
-#include "sound.h"
-#include "pixmap.h"
-#include "network.h"
+#include "def.hpp"
+#include "jauge.hpp"
+#include "sound.hpp"
+#include "pixmap.hpp"
+#include "network.hpp"
 
 /////////////////////////////////////////////////////////////////////////////
 

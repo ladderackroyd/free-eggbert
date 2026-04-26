@@ -12,7 +12,7 @@
 typedef struct IUnknown IUnknown;
 
 #include <windows.h>
-#include "wave.h"
+#include "wave.hpp"
 
 typedef struct tagWAVEFILE
   {

@@ -76,7 +76,7 @@
       <SDLCheck>false</SDLCheck>
       <PreprocessorDefinitions>_WIN32;WIN32;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>dxsdk3\sdk\inc;bass\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;dxsdk3\sdk\inc;bass\inc</AdditionalIncludeDirectories>
       <UndefinePreprocessorDefinitions>UNICODE;_UNICODE</UndefinePreprocessorDefinitions>
       <PrecompiledHeaderFile />
       <Optimization>Disabled</Optimization>
@@ -107,7 +107,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_WIN32;WIN32;_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>dxsdk3\sdk\inc;bass\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;dxsdk3\sdk\inc;bass\inc</AdditionalIncludeDirectories>
       <UndefinePreprocessorDefinitions>UNICODE;_UNICODE</UndefinePreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -129,7 +129,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_WIN32;WIN32;_CRT_SECURE_NO_WARNINGS;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>dxsdk3\sdk\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;dxsdk3\sdk\inc</AdditionalIncludeDirectories>
       <UndefinePreprocessorDefinitions>UNICODE;_UNICODE</UndefinePreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -154,7 +154,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_WIN32;WIN32;_CRT_SECURE_NO_WARNINGS;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>dxsdk3\sdk\inc</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>include;dxsdk3\sdk\inc</AdditionalIncludeDirectories>
       <UndefinePreprocessorDefinitions>UNICODE;_UNICODE</UndefinePreprocessorDefinitions>
     </ClCompile>
     <Link>
@@ -213,25 +213,25 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource\resource.h" />
-    <ClInclude Include="src\button.h" />
-    <ClInclude Include="src\ddutil.h" />
-    <ClInclude Include="src\decor.h" />
-    <ClInclude Include="src\dectables.h" />
-    <ClInclude Include="src\def.h" />
-    <ClInclude Include="src\event.h" />
-    <ClInclude Include="src\jauge.h" />
-    <ClInclude Include="src\menu.h" />
-    <ClInclude Include="src\misc.h" />
-    <ClInclude Include="src\movie.h" />
-    <ClInclude Include="src\network.h" />
-    <ClInclude Include="src\obstacle.h" />
-    <ClInclude Include="src\pixmap.h" />
-    <ClInclude Include="src\pixtables.h" />
+    <ClInclude Include="include\button.hpp" />
+    <ClInclude Include="include\ddutil.hpp" />
+    <ClInclude Include="include\decor.hpp" />
+    <ClInclude Include="include\dectables.hpp" />
+    <ClInclude Include="include\def.hpp" />
+    <ClInclude Include="include\event.hpp" />
+    <ClInclude Include="include\jauge.hpp" />
+    <ClInclude Include="include\menu.hpp" />
+    <ClInclude Include="include\misc.hpp" />
+    <ClInclude Include="include\movie.hpp" />
+    <ClInclude Include="include\network.hpp" />
+    <ClInclude Include="include\obstacle.hpp" />
+    <ClInclude Include="include\pixmap.hpp" />
+    <ClInclude Include="include\pixtables.hpp" />
     <ClInclude Include="src\resource.h" />
-    <ClInclude Include="src\sound.h" />
-    <ClInclude Include="src\text.h" />
-    <ClInclude Include="src\texttables.h" />
-    <ClInclude Include="src\wave.h" />
+    <ClInclude Include="include\sound.hpp" />
+    <ClInclude Include="include\text.hpp" />
+    <ClInclude Include="include\texttables.hpp" />
+    <ClInclude Include="include\wave.hpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="resource\IDR_MAINFRAME.ico" />

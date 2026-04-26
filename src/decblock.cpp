@@ -4,11 +4,11 @@
 typedef struct IUnknown IUnknown;
 
 
-#include "def.h"
-#include "decor.h"
-#include "misc.h"
-#include "obstacle.h"
-#include "dectables.h"
+#include "def.hpp"
+#include "decor.hpp"
+#include "misc.hpp"
+#include "obstacle.hpp"
+#include "dectables.hpp"
 
 BOOL CDecor::BlitzActif(POINT cel)
 {

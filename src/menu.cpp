@@ -7,15 +7,15 @@ typedef struct IUnknown IUnknown;
 #include <stdlib.h>
 #include <stdio.h>
 #include <ddraw.h>
-#include "def.h"
+#include "def.hpp"
 #include "resource.h"
-#include "pixmap.h"
-#include "sound.h"
-#include "decor.h"
-#include "button.h"
-#include "menu.h"
-#include "text.h"
-#include "misc.h"
+#include "pixmap.hpp"
+#include "sound.hpp"
+#include "decor.hpp"
+#include "button.hpp"
+#include "menu.hpp"
+#include "text.hpp"
+#include "misc.hpp"
 
 
 /////////////////////////////////////////////////////////////////////////////

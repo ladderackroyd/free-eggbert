@@ -9,17 +9,17 @@ typedef struct IUnknown IUnknown;
 //#include <stdio.h>
 //#include <math.h>
 #include <ddraw.h>
-#include "def.h"
+#include "def.hpp"
 //#include "resource.h"
-#include "pixmap.h"
-#include "sound.h"
-#include "decor.h"
-#include "text.h"
-#include "misc.h"
-#include "event.h"
-#include "dectables.h"
-#include "jauge.h"
-//#include "network.h"
+#include "pixmap.hpp"
+#include "sound.hpp"
+#include "decor.hpp"
+#include "text.hpp"
+#include "misc.hpp"
+#include "event.hpp"
+#include "dectables.hpp"
+#include "jauge.hpp"
+//#include "network.hpp"
 
 ///////////////////////////////////////////////////////////////////////////////
 

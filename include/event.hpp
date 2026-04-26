@@ -4,10 +4,10 @@
 
 /////////////////////////////////////////////////////////////////////////////
 
-#include "movie.h"
-#include "menu.h"
-#include "button.h"
-#include "text.h"
+#include "movie.hpp"
+#include "menu.hpp"
+#include "button.hpp"
+#include "text.hpp"
 
 typedef struct
 {

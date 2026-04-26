@@ -13,18 +13,18 @@ typedef struct IUnknown IUnknown;
 #include <mmsystem.h>
 #include <time.h>
 #include <sys/timeb.h>
-#include "def.h"
+#include "def.hpp"
 #include "resource.h"
-#include "ddutil.h"
-#include "pixmap.h"
-#include "sound.h"
-#include "decor.h"
-#include "movie.h"
-#include "button.h"
-#include "menu.h"
-#include "event.h"
-#include "network.h"
-#include "misc.h"
+#include "ddutil.hpp"
+#include "pixmap.hpp"
+#include "sound.hpp"
+#include "decor.hpp"
+#include "movie.hpp"
+#include "button.hpp"
+#include "menu.hpp"
+#include "event.hpp"
+#include "network.hpp"
+#include "misc.hpp"
 
 // Define Globals
 

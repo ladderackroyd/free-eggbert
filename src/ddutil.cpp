@@ -16,8 +16,8 @@ typedef struct IUnknown IUnknown;
 #include <ddraw.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include "ddutil.h"
-#include "misc.h"
+#include "ddutil.hpp"
+#include "misc.hpp"
 
 BOOL g_bDebug = TRUE;
 

@@ -4,8 +4,8 @@
 
 //////////////////////////////////////////////////////////////////////////
 
-#include "pixmap.h"
-#include "sound.h"
+#include "pixmap.hpp"
+#include "sound.hpp"
 
 class CJauge
 {

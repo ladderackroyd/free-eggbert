@@ -14,9 +14,9 @@ typedef struct IUnknown IUnknown;
 #include <mmsystem.h>		
 #include <digitalv.h>		
 // #include <mciapi.h>
-#include "def.h"
-#include "movie.h"
-#include "misc.h"
+#include "def.hpp"
+#include "movie.hpp"
+#include "misc.hpp"
 
 //----------------------------------------------------------------------------
 

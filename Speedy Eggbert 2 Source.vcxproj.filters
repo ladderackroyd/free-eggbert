@@ -71,58 +71,58 @@
     <ClInclude Include="src\resource.h">
       <Filter>Resource Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\decor.h">
+    <ClInclude Include="include\decor.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\dectables.h">
+    <ClInclude Include="include\dectables.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\def.h">
+    <ClInclude Include="include\def.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\ddutil.h">
+    <ClInclude Include="include\ddutil.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\event.h">
+    <ClInclude Include="include\event.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\jauge.h">
+    <ClInclude Include="include\jauge.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\menu.h">
+    <ClInclude Include="include\menu.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\misc.h">
+    <ClInclude Include="include\misc.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\movie.h">
+    <ClInclude Include="include\movie.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\network.h">
+    <ClInclude Include="include\network.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\obstacle.h">
+    <ClInclude Include="include\obstacle.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\pixmap.h">
+    <ClInclude Include="include\pixmap.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\pixtables.h">
+    <ClInclude Include="include\pixtables.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\sound.h">
+    <ClInclude Include="include\sound.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\text.h">
+    <ClInclude Include="include\text.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\texttables.h">
+    <ClInclude Include="include\texttables.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\wave.h">
+    <ClInclude Include="include\wave.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\button.h">
+    <ClInclude Include="include\button.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="resource\resource.h">

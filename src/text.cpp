@@ -7,10 +7,10 @@ typedef struct IUnknown IUnknown;
 //#include <stdlib.h>
 //#include <stdio.h>
 #include <ddraw.h>
-#include "def.h"
-#include "pixmap.h"
-#include "text.h"
-#include "texttables.h"
+#include "def.hpp"
+#include "pixmap.hpp"
+#include "text.hpp"
+#include "texttables.hpp"
 
 /////////////////////////////////////////////////////////////////////////////
 

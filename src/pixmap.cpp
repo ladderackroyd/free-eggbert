@@ -10,11 +10,11 @@ typedef struct IUnknown IUnknown;
 #include <ddraw.h>
 #include <time.h>
 #include <sys/timeb.h>
-#include "def.h"
-#include "pixmap.h"
-#include "misc.h"
-#include "ddutil.h"
-#include "pixtables.h"
+#include "def.hpp"
+#include "pixmap.hpp"
+#include "misc.hpp"
+#include "ddutil.hpp"
+#include "pixtables.hpp"
 
 #define DIRECTDRAW_VERSION 0x0500
 
