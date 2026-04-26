@@ -2,13 +2,10 @@
  * Sound related stuff, I dunno
 ************************************************/
 
-#ifndef WAVE_H
-#define WAVE_H
+#pragma once
 
 #include <dsound.h>
 
 void LoadWave(HINSTANCE hinst, int ResourceID,
               LPDIRECTSOUND lpds,
               LPDIRECTSOUNDBUFFER &lpDSB);
-
-#endif

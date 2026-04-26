@@ -1,5 +1,4 @@
-#ifndef OBSTACLE_H
-#define OBSTACLE_H
+#pragma once
 
 #define Q_EMPTY \
 0,0,0,0, \
@@ -43,5 +42,3 @@
 0,1,1,0
 
 extern short table_decor_quart[];
-
-#endif

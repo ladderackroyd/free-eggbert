@@ -1,6 +1,5 @@
-// Event.h
-#ifndef EVENT_H
-#define EVENT_H
+// Event.hpp
+#pragma once
 
 /////////////////////////////////////////////////////////////////////////////
 
@@ -319,5 +318,3 @@ protected:
 
 extern
 int		DirectoryThing(LPCSTR filename);
-
-#endif

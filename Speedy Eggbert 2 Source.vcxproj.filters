@@ -203,5 +203,14 @@
     <ClCompile Include="src\soundold.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\dectables.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\direct.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\obstacle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

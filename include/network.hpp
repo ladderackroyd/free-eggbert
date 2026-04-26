@@ -1,7 +1,6 @@
-// Network.h
+// Network.hpp
 
-#ifndef NETWORK_H
-#define NETWORK_H
+#pragma once
 
 #include "dplay.h"
 #include "def.hpp"
@@ -75,5 +74,3 @@ static BOOL EnumSessionsCallback(LPDPSESSIONDESC2 lpThisSD,
 	LPDWORD lpdwTimeOut, DWORD dwFlags, NamedGUIDList* lpContext);
 
 void TraceErrorDP(HRESULT hErr);
-
-#endif

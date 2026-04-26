@@ -1,5 +1,4 @@
-#ifndef DDUTIL_H
-#define DDUTIL_H
+#pragma once
 /*==========================================================================
  *
  *  Copyright (C) 1995 Microsoft Corporation. All Rights Reserved.
@@ -29,5 +28,3 @@ extern HRESULT              DDSetColorKey2(IDirectDrawSurface* pdds, COLORREF rg
 #ifdef __cplusplus
 }
 #endif	/* __cplusplus */
-
-#endif

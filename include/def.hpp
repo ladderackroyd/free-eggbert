@@ -1,8 +1,7 @@
-// Def.h
+// Def.hpp
 //
 
-#ifndef DEF_H
-#define DEF_H
+#pragma once
 
 #include <windows.h>
 #include <cmath> // ceil
@@ -1417,5 +1416,3 @@ inline bool operator==(POINT a, const POINT& b)
 {
 	return a.x == b.x && a.y == b.y;
 }
-
-#endif

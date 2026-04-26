@@ -1,5 +1,4 @@
-#ifndef BUTTON_H
-#define BUTTON_H
+#pragma once
 
 #include <windows.h>
 
@@ -66,5 +65,3 @@ protected:
 	BOOL		m_bMinimizeRedraw;
 	BOOL		m_bRedraw;		
 };
-
-#endif

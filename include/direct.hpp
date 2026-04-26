@@ -1,7 +1,6 @@
 #ifdef WINELIB
 
-#ifndef _DIRECT_H_
-#define _DIRECT_H_
+#pragma once
 
 #include <filesystem>
 #include <string>
@@ -40,5 +39,4 @@ int _findnext(int hFile, struct _finddata_t *fBuffer);
 
 int _mkdir(const char* path);
 
-#endif
 #endif

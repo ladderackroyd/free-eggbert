@@ -1,6 +1,5 @@
-// Decor.h
-#ifndef DECOR_H
-#define DECOR_H
+// Decor.hpp
+#pragma once
 
 #include "def.hpp"
 #include "jauge.hpp"
@@ -641,5 +640,3 @@ inline BOOL CDecor::IsBlupiStanding()
 		!(m_blupiAir || m_blupiBalloon || m_blupiEcrase ||
 		m_blupiNage || m_blupiSurf || m_blupiSuspend);		
 }
-
-#endif

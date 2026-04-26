@@ -1,7 +1,6 @@
-// sound.h
+// sound.hpp
 //
-#ifndef SOUND_H
-#define SOUND_H
+#pragma once
 
 #include "dsound.h"
 #include <stdio.h>
@@ -80,5 +79,3 @@ protected:
 	int                     m_nbSuspendSkip;
 	
 };
-
-#endif

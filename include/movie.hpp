@@ -1,7 +1,6 @@
-// movie.h
+// movie.hpp
 //
-#ifndef MOVIE_H
-#define MOVIE_H
+#pragma once
 
 class CMovie
 {
@@ -30,5 +29,3 @@ protected:
     BOOL        m_fPlaying;
     BOOL        m_fMovieOpen;
 };
-
-#endif

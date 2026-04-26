@@ -1,7 +1,6 @@
-#ifndef DECTABLES_H
-#define DECTABLES_H
+#pragma once
 
-#include "obstacle.h"
+#include "obstacle.hpp"
 
 extern int table_blitz[];
 
@@ -237,5 +236,3 @@ extern int table_ressort[];
 extern int table_blupi[];
 
 extern int table_tutorial[];
-
-#endif

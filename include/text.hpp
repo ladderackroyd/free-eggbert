@@ -1,6 +1,5 @@
-// Text.h
-#ifndef TEXT_H
-#define TEXT_H
+// Text.hpp
+#pragma once
 
 #define FONTWHITE  0
 #define FONTGOLD    1
@@ -58,5 +57,3 @@ void DrawBignum(CPixmap *pPixmap, POINT pos, int num);
 
 extern
 int GetBignumWidth(int num);
-
-#endif

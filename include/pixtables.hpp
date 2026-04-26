@@ -1,5 +1,4 @@
-#ifndef PIXTABLES_H
-#define PIXTABLES_H
+#pragma once
 
 // keep these structs for reference
 /*
@@ -1197,5 +1196,3 @@ extern short table_icon_object[] = {
 	986,495, 18,0, 28,64,
 	0,559, 18,0, 28,64,
 };
-
-#endif
