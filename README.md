@@ -36,25 +36,21 @@ This repository should be considered a work-in-progress reverse-engineering and 
 - [ ] Investigate Android support
 - [ ] Investigate web browser support
 
+### Features, which are not yet implemented
+
+### Features, which has issues
+
 ## Development Notes
 
 Some demangled symbol names are taken from the 2013 Windows Phone version of **Speedy Blupi**, inspected using ILSpy.
 
 Special thanks to **Ч.У.Ш** from the 4PDA forum for archiving this obscure version of the game.
 
-For personal convenience, this code currently uses the **BASS** and **BASSMIDI** audio libraries. The original Windows MCI-based behavior can be restored in `def.h` by changing:
+For personal convenience, this code currently uses the **BASS** and **BASSMIDI** audio libraries.  
+The original Windows MCI-based behavior can be restored in `def.h` by changing:
+ - `#define _BASS` to: `#define _BASS false`
 
-```cpp
-#define _BASS
-````
-
-to:
-
-```cpp
-#define _BASS false
-```
-
-## Files Requiring the Most Attention
+### Files Requiring the Most Attention
 
 These files currently need the most work, listed in rough priority order:
 
@@ -68,7 +64,7 @@ These files currently need the most work, listed in rough priority order:
 * `decor.cpp`
 * `misc.cpp`
 
-## Files Tentatively Complete
+### Files Tentatively Complete
 
 These files appear mostly complete, but still require testing and verification:
 
@@ -99,6 +95,13 @@ Alternatively:
 git submodule update --init --recursive
 ```
 
+### Add game files of Speedy Eggbert 2
+ 
+ - DATA
+ - IMAGE08
+ - IMAGE16
+ - SOUND
+
 ## Development Environment - Visual Studio
 
 ### Requirements
@@ -109,79 +112,69 @@ git submodule update --init --recursive
 
 ### Open the Project
 
-Open the solution file:
-
-```text
-Speedy Eggbert 2 Source.sln
-```
-
-Use **Microsoft Visual Studio 2022**.
-
-Set the platform to:
-
-```text
-x86
-```
-
-Set the debugger target to:
-
-```text
-Win32
-```
+ - Open the solution file: `Speedy Eggbert 2 Source.sln`
+ - Use **Microsoft Visual Studio 2022**.
+ - Set the platform to: `x86`
+ - Set the debugger target to: `Win32`
 
 ### Set Additional Compiler Options
 
 Open:
 
-```text
 Project Properties
-  -> Configuration Properties
-  -> C/C++
-  -> Command Line
-  -> Additional Options
-```
+ - Configuration Properties
+ - C/C++
+ - Command Line
+ - Additional Options
 
-Add:
 
-```text
-/wd4700 /wd4703
-```
+Add: `/wd4700 /wd4703`
 
-These options disable warnings related to potentially uninitialized local variables.
+Note: These options disable warnings related to potentially uninitialized local variables.
 
 ### Set Platform Toolset
 
 Open:
 
-```text
 Project Properties
-  -> General
-  -> Platform Toolset
-```
+ - General
+ - Platform Toolset
 
-Set it to:
-
-```text
-Visual Studio 2022 (v143)
-```
+Set it to: `Visual Studio 2022 (v143)`
 
 ### Build
 
-Right-click the solution:
+Right-click the solution: `Speedy Eggbert 2 Source.sln`
 
-```text
-Speedy Eggbert 2 Source.sln
-```
-
-Then select:
-
-```text
-Build Solution
-```
+Then select: `Build Solution`
 
 ## Development Environment - CLion
 
-Todo
+### WineLib
+
+Install: `apt install libwine-dev libjack-dev`  
+Build via console: `cmake -B build && cmake --build build`
+
+#### Clion
+
+File > Settings > Build, Execution, Deployment > CMake  
+Add CMake profile and add:
+
+```
+-DCMAKE_CXX_COMPILER=wineg++-stable
+-DCMAKE_C_COMPILER=winegcc-stable
+-DCMAKE_CXX_FLAGS="-m64"
+```
+
+Edit Run configuration:
+
+```
+Executable=/usr/bin/wine
+Arguments={PATH}/winelib-demo/cmake-build-debug/bin/WINELIB_DEMO.exe
+```
+
+
+
 
 ## Known Workaround
 
