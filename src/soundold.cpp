@@ -1,15 +1,15 @@
 // sound.cpp
 //
 
-#include "def.h"
+#include "def.hpp"
 
 typedef struct IUnknown IUnknown;
 
 #if !_BASS || _LEGACY
 #include <dsound.h>
 #include <stdio.h>
-#include "sound.h"
-#include "misc.h"
+#include "sound.hpp"
+#include "misc.hpp"
 #include "resource.h"
 
 /////////////////////////////////////////////////////////////////////////////

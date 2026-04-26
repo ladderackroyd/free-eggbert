@@ -1,4 +1,4 @@
-#include "dectables.h"
+#include "dectables.hpp"
 
 int table_blitz[] =
 {

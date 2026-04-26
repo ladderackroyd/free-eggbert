@@ -18,9 +18,9 @@ typedef struct IUnknown IUnknown;
 #include <mmsystem.h>
 #include <digitalv.h>
 // #include <mciapi.h>
-#include "def.h"
-#include "movie.h"
-#include "misc.h"
+#include "def.hpp"
+#include "movie.hpp"
+#include "misc.hpp"
 
 //----------------------------------------------------------------------------
 
@@ -48,7 +48,7 @@ BOOL CMovie::initAVI()
 	mciOpen.dwStyle 		 = 0;
 	mciOpen.hWndParent 		 = NULL;
 
-	try to open the driver
+	// try to open the driver
 	return (mciSendCommand(0, MCI_OPEN, (DWORD)(MCI_OPEN_TYPE),
                            (DWORD)(LPMCI_DGV_OPEN_PARMS)&mciOpen) == 0);
 #endif

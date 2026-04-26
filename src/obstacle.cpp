@@ -1,4 +1,4 @@
-#include "obstacle.h"
+#include "obstacle.hpp"
 
 short table_decor_quart[] =
 {

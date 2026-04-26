@@ -7,9 +7,9 @@ typedef struct IUnknown IUnknown;
 #include <stdio.h>
 #include <windows.h>
 #include "dplay.h"
-#include "misc.h"
-#include "network.h"
-#include "def.h"
+#include "misc.hpp"
+#include "network.hpp"
+#include "def.hpp"
 
 // a0f94abe-11c3-d111-be62-0040f6944838
 static const GUID APP_GUID = { 0xbe4af9a0, 0xc311, 0x11d1, { 0xbe, 0x62, 0x00, 0x40, 0xf6, 0x94, 0x48, 0x38 } };
