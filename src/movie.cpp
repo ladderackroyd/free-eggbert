@@ -49,8 +49,8 @@ BOOL CMovie::initAVI()
 	mciOpen.hWndParent 		 = NULL;
 
 	// try to open the driver
-	return (mciSendCommand(0, MCI_OPEN, (DWORD)(MCI_OPEN_TYPE),
-                           (DWORD)(LPMCI_DGV_OPEN_PARMS)&mciOpen) == 0);
+	return (mciSendCommand(0, MCI_OPEN, (DWORD_PTR)(MCI_OPEN_TYPE),
+                           (DWORD_PTR)(LPMCI_DGV_OPEN_PARMS)&mciOpen) == 0);
 #endif
 }
 
@@ -67,7 +67,7 @@ void CMovie::termAVI()
 	// the device type.
 	mciID = mciGetDeviceIDA(AVI_VIDEO);
 	mciSendCommand(mciID, MCI_CLOSE, 0L,
-                   (DWORD)(LPMCI_GENERIC_PARMS)&mciClose);
+                   (DWORD_PTR)(LPMCI_GENERIC_PARMS)&mciClose);
 #endif
 }
 
@@ -92,7 +92,7 @@ void CMovie::fileCloseMovie(HWND hWnd)
 	MCI_GENERIC_PARMS  mciGeneric;
 
 	mciSendCommand(m_wMCIDeviceID, MCI_CLOSE, 0L,
-				   (DWORD)(LPMCI_GENERIC_PARMS)&mciGeneric);
+				   (DWORD_PTR)(LPMCI_GENERIC_PARMS)&mciGeneric);
 
 	m_fPlaying   = FALSE;	// can't be playing any longer
 	m_fMovieOpen = FALSE;	// no more movies open
@@ -144,8 +144,8 @@ BOOL CMovie::fileOpenMovie(HWND hWnd, RECT rect, char *pFilename)
 
 	// try to open the file
 	if ( mciSendCommand(0, MCI_OPEN,
-				(DWORD)(MCI_OPEN_ELEMENT|MCI_DGV_OPEN_PARENT|MCI_DGV_OPEN_WS),
-				(DWORD)(LPMCI_DGV_OPEN_PARMS)&mciOpen) == 0 )
+				(DWORD_PTR)(MCI_OPEN_ELEMENT|MCI_DGV_OPEN_PARENT|MCI_DGV_OPEN_WS),
+				(DWORD_PTR)(LPMCI_DGV_OPEN_PARMS)&mciOpen) == 0 )
 	{
 		// we opened the file o.k., now set up to play it.
 		m_wMCIDeviceID = mciOpen.wDeviceID;	// save ID
@@ -164,7 +164,7 @@ BOOL CMovie::fileOpenMovie(HWND hWnd, RECT rect, char *pFilename)
 		mciStatus.dwItem = MCI_DGV_STATUS_HWND;
 		mciSendCommand(m_wMCIDeviceID,
 					   MCI_STATUS, MCI_STATUS_ITEM,
-					   (DWORD)(LPMCI_STATUS_PARMS)&mciStatus);
+					   (DWORD_PTR)(LPMCI_STATUS_PARMS)&mciStatus);
 		m_hwndMovie = (HWND)mciStatus.dwReturn;
 
 		// now get the movie centered
@@ -214,7 +214,7 @@ void CMovie::playMovie(HWND hWnd, int nDirection)
 			dwFlags |= MCI_DGV_PLAY_REVERSE;
 
 		mciSendCommand(m_wMCIDeviceID, MCI_PLAY, dwFlags,
-		               (DWORD)(LPMCI_DGV_PLAY_PARMS)&mciPlay);
+		               (DWORD_PTR)(LPMCI_DGV_PLAY_PARMS)&mciPlay);
 	}
 	else
 	{
@@ -222,7 +222,7 @@ void CMovie::playMovie(HWND hWnd, int nDirection)
 
 		// tell it to pause
 		mciSendCommand(m_wMCIDeviceID,MCI_PAUSE,0L,
-                      (DWORD)(LPMCI_DGV_PAUSE_PARMS)&mciPause);
+                      (DWORD_PTR)(LPMCI_DGV_PAUSE_PARMS)&mciPause);
 	}
 #endif
 }

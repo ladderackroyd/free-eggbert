@@ -9,6 +9,7 @@ typedef struct IUnknown IUnknown;
 #include <stdio.h>
 #include <stdlib.h>
 #include "def.hpp"
+#define _DEBUG
 
 // Global Variables
 
@@ -105,19 +106,28 @@ void GetCurrentDir(char *pName, int lg)
 		pName[i] = tolower(pName[i]);
 	}
 
+	/* Strip executable name: scan for the last backslash or forward slash. */
 	while ( lg > 0 )
 	{
 		lg --;
-		if ( pName[lg] == '\\' )
+		if ( pName[lg] == '\\' || pName[lg] == '/' )
 		{
 			pName[lg+1] = 0;
 			break;
 		}
 	}
 
-	if ( lg > 6 && strcmp(pName+lg-6, "\\debug\\") == 0 )
+	/* If nothing was stripped (e.g. bare "prog" with no directory), point at cwd. */
+	if ( lg == 0 && pName[0] != '\\' && pName[0] != '/' )
 	{
-		pName[lg-5] = 0;  // ignore le dossier \debug !
+		pName[0] = 0;
+		return;
+	}
+
+	if ( lg > 6 && (strcmp(pName+lg-6, "\\debug\\") == 0 ||
+	                strcmp(pName+lg-6, "/debug/") == 0) )
+	{
+		pName[lg-5] = 0;  /* ignore the \debug\ / /debug/ sub-directory */
 	}
 }
 

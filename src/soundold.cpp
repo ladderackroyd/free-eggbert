@@ -8,6 +8,8 @@ typedef struct IUnknown IUnknown;
 #if !_BASS || _LEGACY
 #include <dsound.h>
 #include <stdio.h>
+#include <string>
+#include <cctype>
 #include "sound.hpp"
 #include "misc.hpp"
 #include "resource.h"
@@ -144,11 +146,31 @@ BOOL CSound::ReadData(LPDIRECTSOUNDBUFFER lpDSB, FILE* pFile, DWORD dwSize, DWOR
 
 // Creates a DirectSound buffer from a wave file.
 
+// Opens a sound file with Linux path normalization:
+// replaces backslashes with forward slashes and, if the file is not found,
+// retries with the filename component converted to uppercase.
+static FILE* OpenSoundFile(const char* pFileName)
+{
+	std::string path(pFileName);
+	for (char& c : path)
+		if (c == '\\') c = '/';
+
+	FILE* pFile = fopen(path.c_str(), "rb");
+	if (pFile) return pFile;
+
+	// Retry with uppercase filename component.
+	size_t slash = path.rfind('/');
+	size_t start = (slash == std::string::npos) ? 0 : slash + 1;
+	for (size_t i = start; i < path.size(); i++)
+		path[i] = (char)toupper((unsigned char)path[i]);
+	return fopen(path.c_str(), "rb");
+}
+
 BOOL CSound::CreateBufferFromWaveFile(int dwBuf, char *pFileName)
 {
 	#ifndef WINELIB
 	// Open the wave file
-	FILE* pFile = fopen(pFileName, "rb");
+	FILE* pFile = OpenSoundFile(pFileName);
 	if (pFile == NULL) return FALSE;
 
 	// Read in the wave header
@@ -620,7 +642,7 @@ BOOL CSound::PlayMusic(HWND hWnd, int music)
 	m_lastMidiVolume = m_midiVolume;
 
 	GetCurrentDir(string, MAX_PATH - 30);
-	sprintf(buf, "sound\\music%.3d.blp", music - 1);
+	sprintf(buf, "sound/music%.3d.blp", music - 1);
 	strcat(string, buf);
 
 	// Open the device by specifying the device and filename.
@@ -632,7 +654,7 @@ BOOL CSound::PlayMusic(HWND hWnd, int music)
 	dwReturn = mciSendCommand(NULL,
 		MCI_OPEN,
 		MCI_OPEN_TYPE | MCI_OPEN_ELEMENT,
-		(DWORD)(LPVOID)&mciOpenParms);
+		(DWORD_PTR)(LPVOID)&mciOpenParms);
 	if (dwReturn != 0)
 	{
 		OutputDebug("PlayMusic-1\n");
@@ -652,7 +674,7 @@ BOOL CSound::PlayMusic(HWND hWnd, int music)
 	dwReturn = mciSendCommand(m_MidiDeviceID,
 		MCI_PLAY,
 		MCI_NOTIFY,
-		(DWORD)(LPVOID)&mciPlayParms);
+		(DWORD_PTR)(LPVOID)&mciPlayParms);
 	if (dwReturn != 0)
 	{
 		OutputDebug("PlayMusic-2\n");
@@ -771,7 +793,7 @@ BOOL CSound::PlayCDAudio(HWND hWnd, int track)
 	dwReturn = mciSendCommand(0,
 		MCI_OPEN,
 		MCI_OPEN_TYPE_ID | MCI_OPEN_TYPE,
-		(DWORD)(LPVOID)&mciOpenParms);
+			(DWORD_PTR)(LPVOID)&mciOpenParms);
 	if (dwReturn != 0)
 	{
 		OutputDebug("PlayCDAudio-1\n");
@@ -791,7 +813,7 @@ BOOL CSound::PlayCDAudio(HWND hWnd, int track)
 	dwReturn = mciSendCommand(mciOpenParms.wDeviceID,
 		MCI_SET,
 		MCI_SET_TIME_FORMAT,
-		(DWORD)(LPVOID)&mciSetParms);
+			(DWORD_PTR)(LPVOID)&mciSetParms);
 
 	if (dwReturn != 0)
 	{
@@ -802,13 +824,13 @@ BOOL CSound::PlayCDAudio(HWND hWnd, int track)
 		return FALSE;
 	}
 
-	mciPlayParms.dwCallback = (DWORD)(LPVOID)hWnd;
+	mciPlayParms.dwCallback = (DWORD_PTR)(LPVOID)hWnd;
 	mciPlayParms.dwFrom = track;
 	mciPlayParms.dwTo = track + 1;
 	dwReturn = mciSendCommand(m_MidiDeviceID,
 		MCI_PLAY,
 		MCI_TRACK | MCI_NOTIFY | MCI_WAIT,
-		(DWORD)(LPVOID)&mciPlayParms);
+			(DWORD_PTR)(LPVOID)&mciPlayParms);
 
 	if (dwReturn != 0)
 	{
