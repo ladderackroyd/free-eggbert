@@ -833,6 +833,14 @@ static BOOL DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 char _pgmptr[MAX_PATH];
 #endif
 
+/**
+ * WinMain is the entry point for the game Speedy Blupi. WinMain is an entry point for every Windows program.
+ * @param hInstance
+ * @param hPrevInstance
+ * @param lpCmdLine
+ * @param nCmdShow
+ * @return
+ */
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 					LPSTR lpCmdLine, int nCmdShow)
 {

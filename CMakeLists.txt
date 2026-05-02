@@ -83,6 +83,10 @@ elseif(SPEEDY_BLUPI_BACKEND STREQUAL "FREEDIRECT")
 
     target_compile_definitions(SPEEDY_BLUPI_WINDOWS PRIVATE FREEDIRECT)
 
+    # Diagnostics: enable internal counters & heartbeat in Free Direct (1 s snapshots).
+    # Default ON in this build; set FREE_DIRECT_DIAGNOSTICS=OFF to disable. Counters
+    # are no-ops at runtime unless env var FREE_DIRECT_DIAGNOSTICS=1 is also set.
+    set(FREE_DIRECT_DIAGNOSTICS ON CACHE BOOL "Enable Free Direct diagnostics counters")
     add_subdirectory(../free-api FREE_API)
     add_subdirectory(../free-direct FREE_DIRECT)
 
