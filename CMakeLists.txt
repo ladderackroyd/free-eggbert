@@ -30,9 +30,8 @@ target_compile_options(SPEEDY_BLUPI_WINDOWS
         -fms-extensions
         -fPIC
         -w
-        -Wno-c++11-narrowing
+        -Wno-narrowing
         -Wno-int-to-pointer-cast
-        -Wno-pointer-to-int-cast
         -g
         -O0
 )

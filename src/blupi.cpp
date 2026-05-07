@@ -341,7 +341,6 @@ void UpdateFrame(void)
 	}
 }
 
-
 void SetDecor()
 {
 	RECT rect;
@@ -834,12 +833,21 @@ char _pgmptr[MAX_PATH];
 #endif
 
 /**
- * WinMain is the entry point for the game Speedy Blupi. WinMain is an entry point for every Windows program.
- * @param hInstance
- * @param hPrevInstance
- * @param lpCmdLine
- * @param nCmdShow
- * @return
+ * @brief Entry point of a classic Win32 GUI application.
+ *
+ * `WinMain` is called when a Windows GUI program starts. In this game, it
+ * performs startup initialization, creates the main window, and enters the
+ * application's message loop.
+ *
+ * @param hInstance Handle to the current application/module instance.
+ * @param hPrevInstance Legacy Win16 parameter; always `NULL` in Win32.
+ * @param lpCmdLine Null-terminated command-line string without the executable name.
+ * @param nCmdShow Initial window show command, for example `SW_SHOW`.
+ * @return Application exit code.
+ *
+ * @see RegisterClass
+ * @see CreateWindow
+ * @see ShowWindow
  */
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 					LPSTR lpCmdLine, int nCmdShow)
