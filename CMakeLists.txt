@@ -2,6 +2,26 @@ cmake_minimum_required(VERSION 3.16)
 
 project(SPEEDY_BLUPI_WINDOWS LANGUAGES CXX)
 
+# -----------------------------------------------------------------------------
+# Include-path hygiene rules for this build
+# -----------------------------------------------------------------------------
+# free-api ships compatibility headers that intentionally use legacy WinAPI/CRT
+# names (windows.h, io.h, direct.h, ...). On MinGW, exposing such a directory
+# globally (e.g. via include_directories()) silently shadows MinGW's own
+# headers and breaks libstdc++ <cmath>/<cstdio> resolution while compiling
+# bundled SDL.
+#
+# Therefore:
+#   * DO NOT use bare include_directories(...) at this scope or above SDL.
+#   * DO NOT prepend project root, src/, include/ or freeapi compat dirs to
+#     CMAKE_CXX_FLAGS / CMAKE_C_FLAGS or to a global INTERFACE target.
+#   * Use target_include_directories(<our-target> PRIVATE/PUBLIC ...) only.
+#   * Compatibility headers are owned by the dedicated INTERFACE target
+#     `freeapi_compat_headers` (defined in free-api/CMakeLists.txt) and are
+#     reachable ONLY through `free-api` -> game/free-direct. SDL and other
+#     third_party targets must never link against `freeapi_compat_headers`.
+# -----------------------------------------------------------------------------
+
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
