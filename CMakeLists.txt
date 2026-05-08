@@ -8,10 +8,9 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 include(cmake/ThirdPartySDL.cmake)
 
 # Backend selection:
-#   WINELIB    - build against WineLib / Wine DirectX libraries
-#   FREEDIRECT - future native DirectX 3 replacement backend
-set(SPEEDY_BLUPI_BACKEND "FREEDIRECT" CACHE STRING "Backend: WINELIB or FREEDIRECT")
-set_property(CACHE SPEEDY_BLUPI_BACKEND PROPERTY STRINGS WINELIB FREEDIRECT)
+#   FREEDIRECT - native DirectX 3 replacement backend
+set(SPEEDY_BLUPI_BACKEND "FREEDIRECT" CACHE STRING "Backend: FREEDIRECT")
+set_property(CACHE SPEEDY_BLUPI_BACKEND PROPERTY STRINGS FREEDIRECT)
 
 # Setting the output file
 set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
@@ -28,60 +27,25 @@ target_include_directories(SPEEDY_BLUPI_WINDOWS
 
 if(MSVC)
     target_compile_options(SPEEDY_BLUPI_WINDOWS
-target_compile_options(SPEEDY_BLUPI_WINDOWS
-        PRIVATE
-        -fpermissive
-        -fms-extensions
-        -fPIC
-        -w
-        -Wno-narrowing
-        -Wno-int-to-pointer-cast
-        -g
-        -O0
-)
-
-if(SPEEDY_BLUPI_BACKEND STREQUAL "WINELIB")
-    message(STATUS "Using WINELIB backend")
-
-    target_compile_definitions(SPEEDY_BLUPI_WINDOWS PRIVATE WINELIB)
-
-    # Wine compiler setup should normally be passed before configure:
-    #   cmake -B build -DCMAKE_CXX_COMPILER=wineg++-stable -DCMAKE_C_COMPILER=winegcc-stable
-    #
-    # Do not force CMAKE_CXX_COMPILER here after project(), because it may be too late.
-
-    target_compile_options(SPEEDY_BLUPI_WINDOWS PRIVATE -m64)
-
-    target_include_directories(SPEEDY_BLUPI_WINDOWS
             PRIVATE
-            /usr/include/wine
+            /permissive-
+            /W0
     )
-
-    target_link_directories(SPEEDY_BLUPI_WINDOWS
+else()
+    target_compile_options(SPEEDY_BLUPI_WINDOWS
             PRIVATE
-            /usr/lib/wine
+            -fpermissive
+            -fms-extensions
+            -fPIC
+            -w
+            -Wno-narrowing
+            -Wno-int-to-pointer-cast
+            -g
+            -O0
     )
+endif()
 
-    #find_library(DPLAYX_LIBRARY NAMES dplayx PATHS /home/robertvokac/.wine/drive_c/windows/system32)
-
-    target_link_libraries(SPEEDY_BLUPI_WINDOWS
-            PRIVATE
-            uuid
-            user32
-            gdi32
-            ole32
-            oleaut32
-            shell32
-            ddraw
-            dsound
-
-            # DirectPlay candidates / old Wine DLL experiments:
-            # /home/robertvokac/.wine/drive_c/windows/system32/dplayx.dll
-            # /home/robertvokac/.wine/drive_c/windows/system32/dpnet.dll
-            # /home/robertvokac/.wine/drive_c/windows/system32/dpnlobby.dll
-    )
-
-elseif(SPEEDY_BLUPI_BACKEND STREQUAL "FREEDIRECT")
+if (SPEEDY_BLUPI_BACKEND STREQUAL "FREEDIRECT")
     message(STATUS "Using FREEDIRECT backend")
 
     target_compile_definitions(SPEEDY_BLUPI_WINDOWS PRIVATE FREEDIRECT)

@@ -10,10 +10,6 @@ typedef struct IUnknown IUnknown;
 #include <string.h>
 //#include <stdlib.h>
 #include <stdio.h>
-#ifndef WINELIB
-#include <direct.h>
-#endif
-
 
 #include <mmsystem.h>
 #include <digitalv.h>
@@ -35,8 +31,6 @@ typedef struct IUnknown IUnknown;
 
 BOOL CMovie::initAVI()
 {
-#ifndef WINELIB
-
 	MCI_DGV_OPEN_PARMS	mciOpen;
 
 	// set up the open parameters
@@ -51,15 +45,12 @@ BOOL CMovie::initAVI()
 	// try to open the driver
 	return (mciSendCommand(0, MCI_OPEN, (DWORD_PTR)(MCI_OPEN_TYPE),
                            (DWORD_PTR)(LPMCI_DGV_OPEN_PARMS)&mciOpen) == 0);
-#endif
 }
 
 // Closes the opened AVI file and the opened device type.                                               |
 
 void CMovie::termAVI()
 {
-#ifndef WINELIB
-
 	MCIDEVICEID        mciID;
 	MCI_GENERIC_PARMS  mciClose;
 
@@ -68,7 +59,6 @@ void CMovie::termAVI()
 	mciID = mciGetDeviceIDA(AVI_VIDEO);
 	mciSendCommand(mciID, MCI_CLOSE, 0L,
                    (DWORD_PTR)(LPMCI_GENERIC_PARMS)&mciClose);
-#endif
 }
 
 
@@ -88,7 +78,6 @@ void CMovie::positionMovie(HWND hWnd, RECT rect)
 
 void CMovie::fileCloseMovie(HWND hWnd)
 {
-#ifndef WINELIB
 	MCI_GENERIC_PARMS  mciGeneric;
 
 	mciSendCommand(m_wMCIDeviceID, MCI_CLOSE, 0L,
@@ -100,7 +89,6 @@ void CMovie::fileCloseMovie(HWND hWnd)
 	// cause a total repaint to occur
 	InvalidateRect(hWnd, NULL, TRUE);
 	UpdateWindow(hWnd);
-#endif
 }
 
 
@@ -112,8 +100,6 @@ void CMovie::fileCloseMovie(HWND hWnd)
 
 BOOL CMovie::fileOpenMovie(HWND hWnd, RECT rect, char *pFilename)
 {
-#ifndef WINELIB
-
 	MCI_DGV_OPEN_PARMS		mciOpen;
 	MCI_DGV_WINDOW_PARMS	mciWindow;
 	MCI_DGV_STATUS_PARMS	mciStatus;
@@ -183,8 +169,6 @@ BOOL CMovie::fileOpenMovie(HWND hWnd, RECT rect, char *pFilename)
 
 		return FALSE;
 	}
-#endif
-
 }
 
 // Play/pause the movie depending on the state
@@ -193,8 +177,6 @@ BOOL CMovie::fileOpenMovie(HWND hWnd, RECT rect, char *pFilename)
 
 void CMovie::playMovie(HWND hWnd, int nDirection)
 {
-#ifndef WINELIB
-
 	m_fPlaying = !m_fPlaying;	// swap the play flag
 
 	if( !nDirection )
@@ -224,7 +206,6 @@ void CMovie::playMovie(HWND hWnd, int nDirection)
 		mciSendCommand(m_wMCIDeviceID,MCI_PAUSE,0L,
                       (DWORD_PTR)(LPMCI_DGV_PAUSE_PARMS)&mciPause);
 	}
-#endif
 }
 
 

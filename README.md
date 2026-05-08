@@ -30,7 +30,6 @@ This repository should be considered a work-in-progress reverse-engineering and 
 - [ ] Improve accuracy of the decompiled source code
 - [ ] Restore missing or defective gameplay behavior
 - [ ] Add Doxygen documentation
-- [ ] Add WineLib support via CMake
 - [ ] Add support for Free Direct via CMake
 - [ ] Make the game portable to additional platforms
 - [ ] Investigate Android support
@@ -164,48 +163,30 @@ Then select: `Build Solution`
 
 ## Development Environment - CLion
 
-### WineLib
+### Free Direct
 
-Install: `apt install libwine-dev libjack-dev`  
-Build via console: 
+Build:
 ```bash
 git submodule update --init --recursive
 cmake -S . -B build -DSPEEDY_BLUPI_BACKEND=FREEDIRECT
-cmake -B build \
-  -DSPEEDY_BLUPI_BACKEND=WINELIB \
-  -DCMAKE_CXX_COMPILER=wineg++-stable \
-  -DCMAKE_C_COMPILER=winegcc-stable
-
 cmake --build build
 ```
 
 If an older build directory cached system SDL package paths, do a clean reconfigure:
-#### Clion
 
 ```bash
 rm -rf build
 git submodule update --init --recursive
 cmake -S . -B build -DSPEEDY_BLUPI_BACKEND=FREEDIRECT
 cmake --build build
-File > Settings > Build, Execution, Deployment > CMake  
-Add CMake profile and add:
-
-```
--DCMAKE_CXX_COMPILER=wineg++-stable
--DCMAKE_C_COMPILER=winegcc-stable
--DCMAKE_CXX_FLAGS="-m64"
 ```
 
 Windows (Visual Studio generator example):
-Edit Run configuration:
 
 ```bash
 git submodule update --init --recursive
 cmake -S . -B build -G "Visual Studio 17 2022" -DSPEEDY_BLUPI_BACKEND=FREEDIRECT
 cmake --build build --config Debug
-```
-Executable=/usr/bin/wine
-Arguments={PATH}/winelib-demo/cmake-build-debug/bin/WINELIB_DEMO.exe
 ```
 
 Dependency boundary note:

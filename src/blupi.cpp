@@ -36,11 +36,6 @@ typedef struct IUnknown IUnknown;
 
 #define MMTIMER     TRUE
 
-#ifdef WINELIB
-#undef MMTIMER
-#define MMTIMER     FALSE
-#endif
-
 #define THREAD		FALSE
 
 // Variables Globals
@@ -827,11 +822,6 @@ static BOOL DoInit(HINSTANCE hInstance, LPSTR lpCmdLine, int nCmdShow)
 	return TRUE;
 }
 
-#ifdef WINELIB
-// Define _pgmptr as a global variable
-char _pgmptr[MAX_PATH];
-#endif
-
 /**
  * @brief Entry point of a classic Win32 GUI application.
  *
@@ -852,10 +842,6 @@ char _pgmptr[MAX_PATH];
 int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 					LPSTR lpCmdLine, int nCmdShow)
 {
-#ifdef WINELIB
-	GetModuleFileNameA(NULL, _pgmptr, MAX_PATH);
-#endif
-
 	MSG		msg;
 	LPTIMECALLBACK timeStep;
 

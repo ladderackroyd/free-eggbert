@@ -8,12 +8,8 @@ typedef struct IUnknown IUnknown;
 #include <stdlib.h>
 #include <stdio.h>
 //#include <ddraw.h>
-#ifdef WINELIB
-#include "direct.h"
-#else
 #include <direct.h>
 #include <io.h>
-#endif
 
 #include <io.h>
 #include "def.hpp"
@@ -2072,7 +2068,6 @@ void CEvent::ReadInput()
 		}
 		joy.dwSize = 52;
 		joy.dwFlags = 255;
-#ifndef WINELIB
 		joyPos = joyGetPosEx(bJoyID, &joy);
 
 		if (joyPos == 0)
@@ -2135,7 +2130,6 @@ void CEvent::ReadInput()
 			m_pDecor->SetJoystickEnable(TRUE);
 			return;
 		}
-#endif
 	}
 	return;
 }
@@ -4844,11 +4838,7 @@ BOOL CEvent::ChangePhase(UINT phase)
 		int numDevs;
 		char pBuff[400];
 		DescInfo* info;
-#ifndef WINELIB
 		numDevs = joyGetNumDevs();
-#else
-		numDevs = 1;
-#endif
 		/*
 		if (numDevs > 0)
 		{

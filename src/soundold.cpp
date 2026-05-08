@@ -44,8 +44,6 @@ struct WaveHeader
 
 BOOL CSound::CreateSoundBuffer(int dwBuf, DWORD dwBufSize, DWORD dwFreq, DWORD dwBitsPerSample, DWORD dwBlkAlign, BOOL bStereo)
 {
-	#ifndef WINELIB
-
 	PCMWAVEFORMAT	pcmwf;
 	DSBUFFERDESC	dsbdesc;
 
@@ -67,7 +65,6 @@ BOOL CSound::CreateSoundBuffer(int dwBuf, DWORD dwBufSize, DWORD dwFreq, DWORD d
 
 	TRY_DS(m_lpDS->CreateSoundBuffer(&dsbdesc, &m_lpDSB[dwBuf], NULL))
 		return TRUE;
-#endif
 }
 
 // I dunno what the fuck this does.
@@ -89,8 +86,6 @@ return TRUE;
 
 BOOL CSound::ReadData(LPDIRECTSOUNDBUFFER lpDSB, FILE* pFile, DWORD dwSize, DWORD dwPos)
 {
-#ifndef WINELIB
-
 	// Seek to correct position in file (if necessary)
 	if (dwPos != 0xffffffff)
 	{
@@ -140,7 +135,6 @@ BOOL CSound::ReadData(LPDIRECTSOUNDBUFFER lpDSB, FILE* pFile, DWORD dwSize, DWOR
 	{
 		return FALSE;
 	}
-#endif
 	return TRUE;
 }
 
@@ -168,7 +162,6 @@ static FILE* OpenSoundFile(const char* pFileName)
 
 BOOL CSound::CreateBufferFromWaveFile(int dwBuf, char *pFileName)
 {
-	#ifndef WINELIB
 	// Open the wave file
 	FILE* pFile = OpenSoundFile(pFileName);
 	if (pFile == NULL) return FALSE;
@@ -206,7 +199,6 @@ BOOL CSound::CreateBufferFromWaveFile(int dwBuf, char *pFileName)
 
 	// Close out the wave file
 	fclose(pFile);
-#endif
 	return TRUE;
 }
 
@@ -214,8 +206,6 @@ BOOL CSound::CreateBufferFromWaveFile(int dwBuf, char *pFileName)
 
 BOOL CSound::StopAllSounds()
 {
-#ifndef WINELIB
-
 	// Make sure we have a valid sound buffer
 	for (int i = 0; i < MAXSOUND; i++)
 	{
@@ -230,8 +220,6 @@ BOOL CSound::StopAllSounds()
 			}
 		}
 	}
-#endif
-
 	return TRUE;
 }
 
@@ -239,8 +227,6 @@ BOOL CSound::StopAllSounds()
 
 BOOL CSound::PlaySoundDS(DWORD dwSound, DWORD dwFlags)
 {
-#ifndef WINELIB
-
 	// Make sure the sound is valid
 	if (dwSound >= MAXSOUND)  return FALSE;
 
@@ -256,7 +242,6 @@ BOOL CSound::PlaySoundDS(DWORD dwSound, DWORD dwFlags)
 			TRY_DS(m_lpDSB[dwSound]->Play(0, 0, dwFlags));
 		}
 	}
-#endif
 	return TRUE;
 }
 
@@ -270,8 +255,6 @@ BOOL CSound::PlaySoundDS(DWORD dwSound, DWORD dwFlags)
 
 void InitMidiVolume(int volume)
 {
-#ifndef WINELIB
-
 	int				nb, i, n;
 	MMRESULT		result;
 	HMIDIOUT		hmo = 0;
@@ -321,8 +304,6 @@ void InitMidiVolume(int volume)
 		midiOutClose(hmo);
 		hmo = 0;
 	}
-#endif
-
 }
 
 
@@ -333,8 +314,6 @@ void InitMidiVolume(int volume)
 
 CSound::CSound()
 {
-#ifndef WINELIB
-
 	int		i;
 
 	m_bEnable = FALSE;
@@ -357,15 +336,12 @@ CSound::CSound()
 	{
 		m_channelBlupi[i] = -1;
 	}
-#endif
 }
 
 // Destructeur.
 
 CSound::~CSound()
 {
-#ifndef WINELIB
-
 	int		i;
 
 	if (m_bEnable)
@@ -387,8 +363,6 @@ CSound::~CSound()
 		m_lpDS->Release();
 		m_lpDS = NULL;
 	}
-#endif
-
 }
 
 
@@ -396,8 +370,6 @@ CSound::~CSound()
 
 BOOL CSound::Create(HWND hWnd)
 {
-#ifndef WINELIB
-
 	if (!DirectSoundCreate(NULL, &m_lpDS, NULL) == DS_OK)
 	{
 		OutputDebug("Fatal error: DirectSoundCreate\n");
@@ -409,8 +381,6 @@ BOOL CSound::Create(HWND hWnd)
 	m_bEnable = TRUE;
 	m_hWnd = hWnd;
 	return TRUE;
-#endif
-
 
 }
 
@@ -460,8 +430,6 @@ int CSound::GetMidiVolume()
 
 void CSound::CacheAll()
 {
-#ifndef WINELIB
-
 	int			i;
 	char		name[50];
 
@@ -472,15 +440,12 @@ void CSound::CacheAll()
 		sprintf(name, "sound\\sound%.3d.blp", i);
 		if (!Cache(i, name))  break;
 	}
-#endif
 }
 
 // Charge un fichier son (.wav).
 
 BOOL CSound::Cache(int channel, char *pFilename)
 {
-#ifndef WINELIB
-
 	if (!m_bEnable)  return FALSE;
 	if (channel < 0 || channel >= MAXSOUND)  return FALSE;
 
@@ -490,15 +455,12 @@ BOOL CSound::Cache(int channel, char *pFilename)
 	}
 
 	return CreateBufferFromWaveFile(channel, pFilename);
-#endif
 }
 
 // D�charge un son.
 
 void CSound::Flush(int channel)
 {
-#ifndef WINELIB
-
 	if (!m_bEnable)  return;
 	if (channel < 0 || channel >= MAXSOUND)  return;
 
@@ -507,7 +469,6 @@ void CSound::Flush(int channel)
 		m_lpDSB[channel]->Release();
 		m_lpDSB[channel] = NULL;
 	}
-#endif
 }
 
 // Fait entendre un son.
@@ -517,8 +478,6 @@ void CSound::Flush(int channel)
 
 BOOL CSound::Play(int channel, int volume, int pan)
 {
-#ifndef WINELIB
-
 	if (!m_bEnable)  return TRUE;
 	if (!m_bState || m_audioVolume == 0)  return TRUE;
 
@@ -533,15 +492,11 @@ BOOL CSound::Play(int channel, int volume, int pan)
 	m_lpDSB[channel]->SetVolume(volume);
 	m_lpDSB[channel]->SetPan(pan);
 	m_lpDSB[channel]->Play(0, 0, 0);
-#endif
-
 	return TRUE;
 }
 
 BOOL CSound::StopSound(int channel)
 {
-#ifndef WINELIB
-
 	if (m_bEnable) return FALSE;
 	if (m_bState || m_audioVolume == 0) return FALSE;
 
@@ -553,7 +508,6 @@ BOOL CSound::StopSound(int channel)
 		m_lpDSB[channel]->SetCurrentPosition(0);
 		return TRUE;
 	}
-#endif
 	return FALSE;
 }
 
@@ -563,8 +517,6 @@ BOOL CSound::StopSound(int channel)
 
 BOOL CSound::PlayImage(int channel, POINT pos, int rank)
 {
-#ifndef WINELIB
-
 	int		stopCh, volumex, volumey, volume, pan;
 
 	if (rank >= 0 && rank < MAXBLUPI)
@@ -611,9 +563,6 @@ BOOL CSound::PlayImage(int channel, POINT pos, int rank)
 	else                      volume = volumey;
 
 	return Play(channel, volume, pan);
-#else
-	return TRUE;
-#endif
 }
 
 
@@ -622,8 +571,6 @@ BOOL CSound::PlayImage(int channel, POINT pos, int rank)
 
 BOOL CSound::PlayMusic(HWND hWnd, int music)
 {
-#ifndef WINELIB
-
 	MCI_OPEN_PARMS	mciOpenParms;
 	MCI_PLAY_PARMS	mciPlayParms;
 	DWORD			dwReturn;
@@ -685,8 +632,6 @@ BOOL CSound::PlayMusic(HWND hWnd, int music)
 	}
 
 	m_music = music;
-#endif
-
 	return TRUE;
 }
 
@@ -694,23 +639,18 @@ BOOL CSound::PlayMusic(HWND hWnd, int music)
 
 BOOL CSound::RestartMusic()
 {
-#ifndef WINELIB
-
 	OutputDebug("RestartMusic\n");
 	if (!m_bEnable)  return TRUE;
 	if (m_midiVolume == 0)  return TRUE;
 	if (m_MIDIFilename[0] == 0)  return FALSE;
 
 	return PlayMusic(m_hWnd, m_music);
-#endif
 }
 
 // Shuts down the MIDI player.
 
 void CSound::SuspendMusic()
 {
-#ifndef WINELIB
-
 	if (!m_bEnable)  return;
 
 	if (m_nbSuspendSkip != 0)
@@ -724,18 +664,14 @@ void CSound::SuspendMusic()
 		mciSendCommand(m_MidiDeviceID, MCI_CLOSE, 0, NULL);
 	}
 	m_MidiDeviceID = 0;
-#endif
 }
 
 // Shuts down the MIDI player.
 
 void CSound::StopMusic()
 {
-#ifndef WINELIB
-
 	SuspendMusic();
 	m_MIDIFilename[0] = 0;
-#endif
 }
 
 // Retourne TRUE si une musique est en cours.
@@ -749,15 +685,12 @@ BOOL CSound::IsPlayingMusic()
 
 void CSound::AdaptVolumeMusic()
 {
-#ifndef WINELIB
-
 	if (m_midiVolume != m_lastMidiVolume)
 	{
 		InitMidiVolume(m_midiVolume);
 		m_lastMidiVolume = m_midiVolume;
 		RestartMusic();
 	}
-#endif
 }
 
 // Indique le nombre de suspend � sauter.
@@ -774,8 +707,6 @@ void CSound::SetCDAudio(BOOL bCDAudio)
 
 BOOL CSound::PlayCDAudio(HWND hWnd, int track)
 {
-#ifndef WINELIB
-
 	MCIERROR dwReturn;
 	MCI_PLAY_PARMS mciPlayParms;
 	MCI_SET_PARMS mciSetParms;
@@ -844,8 +775,6 @@ BOOL CSound::PlayCDAudio(HWND hWnd, int track)
 	m_music = track;
 
 	return TRUE;
-#endif
-
 }
 
 #endif

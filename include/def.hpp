@@ -23,11 +23,6 @@
 #define _DREAM			TRUE	// if TRUE, allow Dream blocks when loading levels
 #define _BASS			FALSE	// if TRUE, use BASS audio library instead of DirectMusic (wip)
 
-#ifdef WINELIB
-#define _BASS			FALSE
-#endif
-
-
 #define MAXGAMER		8
 #define MAXNETPLAYER	4
 #define MAXTEAM			4

@@ -51,8 +51,6 @@ static BOOL EnumProvidersCallback(LPGUID lpguidSP, LPSTR lpSPName,
 
 BOOL CNetwork::EnumProviders()
 {
-#ifndef WINELIB
-
 	FreeProviderList();
 	m_providers.nb = 0;
 	m_providers.pList = (NamedGUID(*)[MAXSESSION]) malloc(MAXSESSION * sizeof(NamedGUID));
@@ -67,7 +65,6 @@ BOOL CNetwork::EnumProviders()
 		FreeProviderList();
 		return FALSE;
 	}
-#endif
 	return TRUE;
 }
 
@@ -84,8 +81,6 @@ char* CNetwork::GetProviderName(int index)
 
 BOOL CNetwork::CreateProvider(int index)
 {
-#ifndef WINELIB
-
 	LPDIRECTPLAY lpDP;
 	BOOL bOK = FALSE;
 
@@ -100,7 +95,6 @@ BOOL CNetwork::CreateProvider(int index)
 	}
 
 	if (lpDP) lpDP->Release();
-#endif
 	return FALSE;
 }
 
@@ -164,10 +158,6 @@ char* CNetwork::GetSessionName(int index)
 	if (index >= m_sessions.nb) return NULL;
 	return (*m_sessions.pList)[index].name;
 }
-
-#ifdef WINELIB
-#define DPOPEN_OPENSESSION          DPOPEN_JOIN
-#endif
 
 BOOL CNetwork::JoinSession(int index, char* pPlayerName)
 {

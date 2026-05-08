@@ -211,7 +211,6 @@
     <ClCompile Include="src\text.cpp" />
     <ClCompile Include="src\wave.cpp" />
     <ClCompile Include="src\dectables.cpp" />
-    <ClCompile Include="src\direct.cpp" />
     <ClCompile Include="src\obstacle.cpp" />
   </ItemGroup>
   <ItemGroup>
