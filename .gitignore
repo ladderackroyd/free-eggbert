@@ -37,3 +37,8 @@ cmake-build-debug/*
 /movie
 /data
 /gamefiles
+
+# Emscripten
+
+cmake-build-web/
+

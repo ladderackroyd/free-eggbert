@@ -102,10 +102,10 @@ if (SPEEDY_BLUPI_BACKEND STREQUAL "FREEDIRECT")
             -sUSE_SDL=0
             -sALLOW_MEMORY_GROWTH=1
             -sINITIAL_MEMORY=67108864
-            --preload-file ${CMAKE_SOURCE_DIR}/gamefiles/DATA@/data
-            --preload-file ${CMAKE_SOURCE_DIR}/gamefiles/IMAGE08@/image08
-            --preload-file ${CMAKE_SOURCE_DIR}/gamefiles/IMAGE16@/image16
-            --preload-file ${CMAKE_SOURCE_DIR}/gamefiles/SOUND@/sound
+            "SHELL:--preload-file ${CMAKE_SOURCE_DIR}/gamefiles/DATA@/data"
+            "SHELL:--preload-file ${CMAKE_SOURCE_DIR}/gamefiles/IMAGE08@/image08"
+            "SHELL:--preload-file ${CMAKE_SOURCE_DIR}/gamefiles/IMAGE16@/image16"
+            "SHELL:--preload-file ${CMAKE_SOURCE_DIR}/gamefiles/SOUND@/sound"
             -sEXPORTED_RUNTIME_METHODS=['ccall','cwrap']
         )
     endif()
