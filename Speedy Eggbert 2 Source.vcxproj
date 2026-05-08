@@ -207,7 +207,7 @@
     <ClCompile Include="src\network.cpp" />
     <ClCompile Include="src\pixmap.cpp" />
     <ClCompile Include="src\sound.cpp" />
-    <ClCompile Include="src\soundold.cpp" />
+    <ClCompile Include="src\soundbass.cpp" />
     <ClCompile Include="src\text.cpp" />
     <ClCompile Include="src\wave.cpp" />
     <ClCompile Include="src\dectables.cpp" />

@@ -200,7 +200,7 @@
     <ClCompile Include="src\wave.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="src\soundold.cpp">
+    <ClCompile Include="src\soundbass.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\dectables.cpp">
