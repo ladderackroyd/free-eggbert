@@ -5,6 +5,8 @@ project(SPEEDY_BLUPI_WINDOWS LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+include(cmake/ThirdPartySDL.cmake)
+
 # Backend selection:
 #   WINELIB    - build against WineLib / Wine DirectX libraries
 #   FREEDIRECT - future native DirectX 3 replacement backend
@@ -24,6 +26,8 @@ target_include_directories(SPEEDY_BLUPI_WINDOWS
         ${CMAKE_CURRENT_SOURCE_DIR}/include
 )
 
+if(MSVC)
+    target_compile_options(SPEEDY_BLUPI_WINDOWS
 target_compile_options(SPEEDY_BLUPI_WINDOWS
         PRIVATE
         -fpermissive
@@ -81,6 +85,7 @@ elseif(SPEEDY_BLUPI_BACKEND STREQUAL "FREEDIRECT")
     message(STATUS "Using FREEDIRECT backend")
 
     target_compile_definitions(SPEEDY_BLUPI_WINDOWS PRIVATE FREEDIRECT)
+    configure_vendored_sdl()
 
     # Diagnostics: enable internal counters & heartbeat in Free Direct (1 s snapshots).
     # Default ON in this build; set FREE_DIRECT_DIAGNOSTICS=OFF to disable. Counters
@@ -94,6 +99,8 @@ elseif(SPEEDY_BLUPI_BACKEND STREQUAL "FREEDIRECT")
             free-api
             free-direct
     )
+
+    free_eggbert_copy_sdl_runtime(SPEEDY_BLUPI_WINDOWS)
 
 else()
     message(FATAL_ERROR "Unknown SPEEDY_BLUPI_BACKEND: ${SPEEDY_BLUPI_BACKEND}")

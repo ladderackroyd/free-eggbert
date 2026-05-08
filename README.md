@@ -95,6 +95,20 @@ Alternatively:
 git submodule update --init --recursive
 ```
 
+This project vendors SDL via git submodules under `third_party/`:
+
+- `third_party/SDL`
+- `third_party/SDL_image`
+- `third_party/SDL_mixer`
+
+By default, CMake builds these vendored dependencies directly (no system SDL packages required).
+
+Optional override for advanced users:
+
+```bash
+cmake -S . -B build -DFREE_USE_SYSTEM_SDL=ON
+```
+
 ### Add game files of Speedy Eggbert 2
  
  - DATA
@@ -155,6 +169,8 @@ Then select: `Build Solution`
 Install: `apt install libwine-dev libjack-dev`  
 Build via console: 
 ```bash
+git submodule update --init --recursive
+cmake -S . -B build -DSPEEDY_BLUPI_BACKEND=FREEDIRECT
 cmake -B build \
   -DSPEEDY_BLUPI_BACKEND=WINELIB \
   -DCMAKE_CXX_COMPILER=wineg++-stable \
@@ -163,8 +179,14 @@ cmake -B build \
 cmake --build build
 ```
 
+If an older build directory cached system SDL package paths, do a clean reconfigure:
 #### Clion
 
+```bash
+rm -rf build
+git submodule update --init --recursive
+cmake -S . -B build -DSPEEDY_BLUPI_BACKEND=FREEDIRECT
+cmake --build build
 File > Settings > Build, Execution, Deployment > CMake  
 Add CMake profile and add:
 
@@ -174,20 +196,22 @@ Add CMake profile and add:
 -DCMAKE_CXX_FLAGS="-m64"
 ```
 
+Windows (Visual Studio generator example):
 Edit Run configuration:
 
+```bash
+git submodule update --init --recursive
+cmake -S . -B build -G "Visual Studio 17 2022" -DSPEEDY_BLUPI_BACKEND=FREEDIRECT
+cmake --build build --config Debug
 ```
 Executable=/usr/bin/wine
 Arguments={PATH}/winelib-demo/cmake-build-debug/bin/WINELIB_DEMO.exe
 ```
 
-### Free Direct
+Dependency boundary note:
 
-Build:
-```bash
-cmake -B build -DSPEEDY_BLUPI_BACKEND=FREEDIRECT
-cmake --build build
-```
+- `SPEEDY_BLUPI_WINDOWS` links only `free-api` and `free-direct`.
+- SDL include directories, compile definitions, and SDL libraries stay private to `free-api` / `free-direct`.
 ## Known Workaround
 
 This workaround may be required in some configurations:
