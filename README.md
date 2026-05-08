@@ -227,6 +227,24 @@ emrun cmake-build-web/bin/SPEEDY_BLUPI_WINDOWS.html
 Game assets are preloaded directly from the repository's `gamefiles/` directories
 (`DATA`, `IMAGE08`, `IMAGE16`, `SOUND`) into the Emscripten virtual filesystem at
 build time — no manual data copying is required.
+
+### Persistent saves on Web
+
+User config and save-game data are stored in the browser's **IndexedDB** (via
+Emscripten IDBFS) and mounted at `/save` inside the virtual filesystem.  Data
+persists across page reloads.  Clearing browser site data resets persistence to
+the preloaded defaults.
+
+Export and import save data from the browser console:
+
+```js
+// Download /save as free-eggbert-save.json
+Module.ccall('FreeEggbert_ExportPersistentData', null, [], []);
+
+// Import a previously exported .json back into /save
+Module.ccall('FreeEggbert_ImportPersistentData', null, [], []);
+```
+
 See [`cmake/EmscriptenToolchain.md`](cmake/EmscriptenToolchain.md) for full details.
 
 ## Disclaimer

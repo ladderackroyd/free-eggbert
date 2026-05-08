@@ -28,6 +28,7 @@ typedef struct IUnknown IUnknown;
 #include "event.hpp"
 #include "network.hpp"
 #include "misc.hpp"
+#include "web_persistence.hpp"
 
 // Define Globals
 
@@ -849,12 +850,15 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 	MSG		msg;
 	LPTIMECALLBACK timeStep;
 
+	WebPersistence_Init();
+
 	if ( !DoInit(hInstance, lpCmdLine, nCmdShow) )
 	{
 		return FALSE;
 	}
 
 	Benchmark();
+	WebPersistence_SyncAsync();
 	
 #if MMTIMER
 	g_updateTimer = timeSetEvent(g_timerInterval, g_timerInterval / 4, TimerStep, NULL, TIME_PERIODIC);

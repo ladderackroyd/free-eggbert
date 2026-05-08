@@ -38,6 +38,9 @@ set(EXECUTABLE_OUTPUT_PATH ${CMAKE_BINARY_DIR}/bin)
 # Adding source code files
 file(GLOB_RECURSE SOURCES "src/*.cpp")
 
+# web_persistence.cpp is included via GLOB above when __EMSCRIPTEN__;
+# on native builds the file compiles to an empty translation unit (guarded
+# by #if defined(__EMSCRIPTEN__)) so no special exclusion is needed.
 add_executable(SPEEDY_BLUPI_WINDOWS ${SOURCES})
 
 # On Emscripten the output is HTML+JS+WASM; set the suffix accordingly.
@@ -103,11 +106,13 @@ if (SPEEDY_BLUPI_BACKEND STREQUAL "FREEDIRECT")
             -sALLOW_MEMORY_GROWTH=1
             -sINITIAL_MEMORY=67108864
             -sASYNCIFY
-            "SHELL:--preload-file ${CMAKE_SOURCE_DIR}/gamefiles/DATA@/data"
+            "SHELL:--preload-file ${CMAKE_SOURCE_DIR}/gamefiles/DATA@/data_readonly"
             "SHELL:--preload-file ${CMAKE_SOURCE_DIR}/gamefiles/IMAGE08@/image08"
             "SHELL:--preload-file ${CMAKE_SOURCE_DIR}/gamefiles/IMAGE16@/image16"
             "SHELL:--preload-file ${CMAKE_SOURCE_DIR}/gamefiles/SOUND@/sound"
-            -sEXPORTED_RUNTIME_METHODS=['ccall','cwrap']
+            -sFORCE_FILESYSTEM=1
+            "-sEXPORTED_RUNTIME_METHODS=['FS','ccall','cwrap']"
+            "-sEXPORTED_FUNCTIONS=['_main','_FreeEggbert_ExportPersistentData','_FreeEggbert_ImportPersistentData']"
         )
     endif()
 
