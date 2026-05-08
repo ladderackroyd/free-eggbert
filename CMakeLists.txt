@@ -77,7 +77,6 @@ if (SPEEDY_BLUPI_BACKEND STREQUAL "FREEDIRECT")
     set(FREE_DIRECT_DIAGNOSTICS ON CACHE BOOL "Enable Free Direct diagnostics counters")
     add_subdirectory(../free-api FREE_API)
     add_subdirectory(../free-direct FREE_DIRECT)
-
     target_link_libraries(SPEEDY_BLUPI_WINDOWS
             PRIVATE
             free-api
@@ -85,6 +84,7 @@ if (SPEEDY_BLUPI_BACKEND STREQUAL "FREEDIRECT")
     )
 
     free_eggbert_copy_sdl_runtime(SPEEDY_BLUPI_WINDOWS)
+    free_eggbert_copy_mingw_runtime(SPEEDY_BLUPI_WINDOWS)
 
 else()
     message(FATAL_ERROR "Unknown SPEEDY_BLUPI_BACKEND: ${SPEEDY_BLUPI_BACKEND}")

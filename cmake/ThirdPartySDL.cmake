@@ -73,3 +73,30 @@ function(free_eggbert_copy_sdl_runtime target_name)
         endif()
     endforeach()
 endfunction()
+
+function(free_eggbert_copy_mingw_runtime target_name)
+    if(NOT WIN32 OR NOT MINGW)
+        return()
+    endif()
+
+    # Locate the MinGW bin directory from the CXX compiler path
+    get_filename_component(_mingw_bin_dir "${CMAKE_CXX_COMPILER}" DIRECTORY)
+
+    set(_mingw_dlls
+        "libgcc_s_seh-1.dll"
+        "libstdc++-6.dll"
+        "libwinpthread-1.dll"
+    )
+
+    foreach(_dll IN LISTS _mingw_dlls)
+        set(_dll_path "${_mingw_bin_dir}/${_dll}")
+        if(EXISTS "${_dll_path}")
+            add_custom_command(TARGET ${target_name} POST_BUILD
+                COMMAND ${CMAKE_COMMAND} -E copy_if_different
+                    "${_dll_path}"
+                    "$<TARGET_FILE_DIR:${target_name}>"
+                COMMENT "Deploying MinGW runtime: ${_dll}"
+                VERBATIM)
+        endif()
+    endforeach()
+endfunction()
