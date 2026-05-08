@@ -40,6 +40,11 @@ file(GLOB_RECURSE SOURCES "src/*.cpp")
 
 add_executable(SPEEDY_BLUPI_WINDOWS ${SOURCES})
 
+# On Emscripten the output is HTML+JS+WASM; set the suffix accordingly.
+if(EMSCRIPTEN)
+    set_target_properties(SPEEDY_BLUPI_WINDOWS PROPERTIES SUFFIX ".html")
+endif()
+
 target_include_directories(SPEEDY_BLUPI_WINDOWS
         PUBLIC
         ${CMAKE_CURRENT_SOURCE_DIR}/include
@@ -75,6 +80,13 @@ if (SPEEDY_BLUPI_BACKEND STREQUAL "FREEDIRECT")
     # Default ON in this build; set FREE_DIRECT_DIAGNOSTICS=OFF to disable. Counters
     # are no-ops at runtime unless env var FREE_DIRECT_DIAGNOSTICS=1 is also set.
     set(FREE_DIRECT_DIAGNOSTICS ON CACHE BOOL "Enable Free Direct diagnostics counters")
+
+    # Disable free-api tests by default when building for Emscripten (they are
+    # not runnable in the browser and would add unnecessary build overhead).
+    if(EMSCRIPTEN)
+        set(FREE_API_BUILD_TESTS OFF CACHE BOOL "Build free-api tests" FORCE)
+    endif()
+
     add_subdirectory(../free-api FREE_API)
     add_subdirectory(../free-direct FREE_DIRECT)
     target_link_libraries(SPEEDY_BLUPI_WINDOWS
@@ -82,6 +94,21 @@ if (SPEEDY_BLUPI_BACKEND STREQUAL "FREEDIRECT")
             free-api
             free-direct
     )
+
+    # Emscripten-specific link options: produce HTML output and preload game data
+    # directly from the repository asset directories into the virtual filesystem.
+    if(EMSCRIPTEN)
+        target_link_options(SPEEDY_BLUPI_WINDOWS PRIVATE
+            -sUSE_SDL=0
+            -sALLOW_MEMORY_GROWTH=1
+            -sINITIAL_MEMORY=67108864
+            --preload-file ${CMAKE_SOURCE_DIR}/gamefiles/DATA@/data
+            --preload-file ${CMAKE_SOURCE_DIR}/gamefiles/IMAGE08@/image08
+            --preload-file ${CMAKE_SOURCE_DIR}/gamefiles/IMAGE16@/image16
+            --preload-file ${CMAKE_SOURCE_DIR}/gamefiles/SOUND@/sound
+            -sEXPORTED_RUNTIME_METHODS=['ccall','cwrap']
+        )
+    endif()
 
     free_eggbert_copy_sdl_runtime(SPEEDY_BLUPI_WINDOWS)
     free_eggbert_copy_mingw_runtime(SPEEDY_BLUPI_WINDOWS)

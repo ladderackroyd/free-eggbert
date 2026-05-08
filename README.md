@@ -208,6 +208,27 @@ c:\program files (x86)\windows kits\8.1\include\um\combaseapi.h(229):
 error C2760: syntax error: unexpected token 'identifier', expected 'type specifier'
 ```
 
+## Building for Web with Emscripten
+
+First, install and activate the [Emscripten SDK](https://emscripten.org/docs/getting_started/downloads.html):
+
+```sh
+source /path/to/emsdk/emsdk_env.sh
+```
+
+Then configure, build, and run:
+
+```sh
+emcmake cmake -S . -B cmake-build-web -DCMAKE_BUILD_TYPE=Debug
+cmake --build cmake-build-web -j
+emrun cmake-build-web/bin/SPEEDY_BLUPI_WINDOWS.html
+```
+
+Game assets are preloaded directly from the repository's `gamefiles/` directories
+(`DATA`, `IMAGE08`, `IMAGE16`, `SOUND`) into the Emscripten virtual filesystem at
+build time — no manual data copying is required.
+See [`cmake/EmscriptenToolchain.md`](cmake/EmscriptenToolchain.md) for full details.
+
 ## Disclaimer
 
 This project is intended for research, preservation, documentation, and compatibility work.

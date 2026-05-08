@@ -5,6 +5,10 @@
 
 typedef struct IUnknown IUnknown;
 
+#if defined(__EMSCRIPTEN__)
+#include <emscripten/emscripten.h>
+#endif
+
 #include <windows.h>
 #include <windowsx.h>
 #include <wtypes.h>
@@ -879,8 +883,10 @@ int WINAPI WinMain (HINSTANCE hInstance, HINSTANCE hPrevInstance,
 		}
 		else
 		{
+#if !defined(__EMSCRIPTEN__)
 			// make sure we go to sleep if we have nothing else to do
 			if ( !g_bActive ) WaitMessage();
+#endif
 		}
 	}
 
