@@ -1,0 +1,19 @@
+# Android build outputs
+app/build/
+build/
+
+# Local SDK path (developer-specific)
+local.properties
+
+# Signing key config (contains passwords – never commit)
+key.properties
+
+# Android Studio / IntelliJ project files
+.idea/
+*.iml
+
+# NDK / CMake generated files
+app/.cxx/
+
+# Gradle cache
+.gradle/

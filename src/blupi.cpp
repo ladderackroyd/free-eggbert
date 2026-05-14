@@ -30,6 +30,11 @@ typedef struct IUnknown IUnknown;
 #include "misc.hpp"
 #include "web_persistence.hpp"
 
+// SDL3 is included after WinAPI shims for SDL_Log / SDL_GetTicks used in perf diagnostics.
+#if !defined(_WIN32)
+#include <SDL3/SDL.h>
+#endif
+
 // Define Globals
 
 #define NAME        "Blupi"
@@ -475,7 +480,29 @@ LRESULT CALLBACK WindowProc(HWND hWnd, UINT message,
 			}
 			g_pPixmap->Display();
 		}
-		if (g_timer > 0) g_timer--;
+ 	if (g_timer > 0) g_timer--;
+		// FREE_EGGBERT_PERF: throttled once-per-second game-loop diagnostics.
+		{
+			static uint64_t s_frames = 0;
+			static uint64_t s_lastMs = 0;
+			s_frames++;
+			const uint64_t nowMs = static_cast<uint64_t>(SDL_GetTicks());
+			if (s_lastMs == 0) s_lastMs = nowMs;
+			if (nowMs - s_lastMs >= 1000) {
+				const double fps = static_cast<double>(s_frames) * 1000.0
+				                 / static_cast<double>(nowMs - s_lastMs);
+				SDL_Log("FREE_EGGBERT_PERF: FPS=%.1f timer_interval_ms=%d build=%s",
+				        fps, g_timerInterval,
+#ifdef NDEBUG
+				        "Release"
+#else
+				        "Debug"
+#endif
+				        );
+				s_frames = 0;
+				s_lastMs = nowMs;
+			}
+		}
 		break;
 	case WM_CREATE:
 		hInstance = ((LPCREATESTRUCT)lParam)->hInstance;
