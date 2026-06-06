@@ -1,0 +1,14 @@
+@startuml ddutil
+class ddutil <<c_extern>> {
++void DDSetDebug(BOOL bDebug)
++IDirectDrawPalette * DDLoadPalette(IDirectDraw *pdd, LPCSTR szBitmap)
++IDirectDrawSurface * DDLoadBitmap(IDirectDraw *pdd, LPCSTR szBitmap, int dx, int dy)
++HRESULT              DDReLoadBitmap(IDirectDrawSurface *pdds, LPCSTR szBitmap)
++HRESULT              DDCopyBitmap(IDirectDrawSurface *pdds, HBITMAP hbm, int x, int y, int dx, int dy)
++DWORD                DDColorMatch(IDirectDrawSurface *pdds, COLORREF rgb)
++HRESULT              DDSetColorKey(IDirectDrawSurface *pdds, COLORREF rgb)
++HRESULT              DDSetColorKey2(IDirectDrawSurface* pdds, COLORREF rgb1, COLORREF rgb2)
+}
+class ddutil <<functions>> {
+}
+@enduml

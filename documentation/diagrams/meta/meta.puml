@@ -1,0 +1,29 @@
+@startuml meta/meta
+class meta/meta <<functions>> {
+{
++enum class GameFamilyBlupi,Eggbert,ReaktivniyEgbert
+}
++enum class GameGeneration
+{
++V1,V2
+}
++enum class Distribution
+{
++Full,Demo,Valueware
+}
++enum class Language
+{
++EN,FR,RU
+}
+}
+class  GameVariant<<struct>>
+{
++GameFamily family
++GameGeneration generation
++Distribution distribution
++Language language
+}
+class meta/meta <<functions>> {
+}
+}
+@enduml

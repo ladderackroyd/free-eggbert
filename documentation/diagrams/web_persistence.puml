@@ -1,0 +1,13 @@
+@startuml web_persistence
+class web_persistence <<functions>> {
++bool WebPersistence_Init()void WebPersistence_SyncAsync()
++void WebPersistence_SyncBlocking()
++"C" void FreeEggbert_ExportPersistentData()
++"C" void FreeEggbert_ImportPersistentData()
++inline bool WebPersistence_Init()       { return true; }
++inline void WebPersistence_SyncAsync()  {}
++inline void WebPersistence_SyncBlocking() {}
++"C" inline void FreeEggbert_ExportPersistentData() {}
++"C" inline void FreeEggbert_ImportPersistentData() {}
+}
+@enduml
